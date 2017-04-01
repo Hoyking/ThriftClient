@@ -1,20 +1,19 @@
 package listener;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import view.GeneralView;
 
-public class DeleteMenuItemListener implements ActionListener {
+public class CreateMenuItemListener {
 
 	private GeneralView view;
 	
-	public DeleteMenuItemListener(GeneralView view) {
+	public CreateMenuItemListener(GeneralView view) {
 		this.view = view;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		view.deleteModOn();
 	}
-
+	
 }

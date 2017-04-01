@@ -76,6 +76,7 @@ public class GeneralView extends AbstractClientView{
 		
 		searchField = new JTextField(18);
 		searchField.addKeyListener(new SearchArticlesListener(this));
+		searchField.setVisible(false);
 		
 		menuBar = new JMenuBar();
 		JMenu menu = new JMenu("      Edit      ");
@@ -132,7 +133,12 @@ public class GeneralView extends AbstractClientView{
 		}
 	}
 	
+	public void searchModOn() {
+		searchField.setVisible(true);
+	}
+	
 	public void searchModOff() {
+		searchField.setVisible(false);
 		searchArticles.clear();
 		repaint();
 	}
@@ -184,6 +190,7 @@ public class GeneralView extends AbstractClientView{
 	}
 	
 	public void searchArticles() {
+		searchArticles.clear();
 		String str = searchField.getText();
 		if(str.length() == 0) {
 			JOptionPane.showMessageDialog(new JFrame(), "Searching field is empty", "Error", JOptionPane.ERROR_MESSAGE);
@@ -191,8 +198,7 @@ public class GeneralView extends AbstractClientView{
 		}
 		for(ArticleLink articleLink: articles) {
 			if(articleLink.getName().contains(str)) {
-				//searchArticles.add(new ArticleLink(articleLink.getName(), this));
-				searchArticles.add(articleLink);
+				searchArticles.add(new ArticleLink(articleLink.getName(), this));
 			}
 		}
 		repaintAsSearchable();
@@ -211,9 +217,7 @@ public class GeneralView extends AbstractClientView{
 		for(ArticleLink article: searchArticles) {
 			paintArticle(article);
 		}
-		textArea.setText("");
-		label.setText(" ");
-		panel.repaint();
+		panel.getParent().repaint();
 	}
 	
 	public void repaint() {
