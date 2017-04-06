@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.InputEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +21,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 
 import org.apache.thrift.TException;
 
 import component.ArticleLink;
 import controller.ConnectionController;
 import listener.DeleteArticleListener;
+import listener.EditArticleListener;
 import listener.SearchArticlesListener;
 import service.ArticleNotFoundException;
 
@@ -36,37 +35,48 @@ public class GeneralView extends AbstractClientView{
 	
 	private List <ArticleLink> articles;
 	private List <ArticleLink> unnecArticles;
-	private List <ArticleLink> searchArticles;
+	private ArticleLink selectedArticle;
 	private JTextArea textArea;
 	private JTextField searchField;
 	private JPanel textPane;
 	private JLabel label;
 	private JMenuBar menuBar;
-	private JButton deleteButton;
 	private JPanel delButtonPanel;
+	private JPanel editButtonPanel;
+	private static final Color WHITE = Color.WHITE;
+	private static final Color GRAY = new Color(245, 245, 245);
 	
 	public GeneralView() {
 		unnecArticles = new ArrayList <ArticleLink> ();
 		articles = new ArrayList <ArticleLink> ();
-		searchArticles = new ArrayList <ArticleLink> ();
 		decorateView();
 	}
 	
 	@Override
 	protected final void decorateView() {
 		Font font = new Font("Arial", 1, 16);
-		label = new JLabel(" ");
+		label = new JLabel();
 		label.setFont(font);
 		
-		textArea = new JTextArea(20, 40);
+		textArea = new JTextArea();
+		textArea.setBackground(GRAY);
 		textArea.setEditable(false);
 		
+		JButton editButton = new JButton("Confirm");
+		editButton.setBounds(196, 5, 200, 20);
+		editButton.addActionListener(new EditArticleListener(this));
+		
+		editButtonPanel = new JPanel();
+		editButtonPanel.setLayout(null);
+		editButtonPanel.add(editButton);
+		editButtonPanel.setVisible(false);
+		
 		textPane = new JPanel();
-		textPane.setBackground(Color.WHITE);
+		textPane.setBackground(GRAY);
 		textPane.setLayout(new BoxLayout(textPane, BoxLayout.PAGE_AXIS));
 		
-		deleteButton = new JButton("Delete");
-		deleteButton.setBounds(0, 5, 197, 20);
+		JButton deleteButton = new JButton("Delete");
+		deleteButton.setBounds(0, 5, 200, 20);
 		deleteButton.addActionListener(new DeleteArticleListener(this));
 		
 		delButtonPanel = new JPanel();
@@ -91,6 +101,11 @@ public class GeneralView extends AbstractClientView{
 	    areaPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    areaPane.setPreferredSize(new Dimension(597, 280));
 	    
+	    JPanel areaPanePanel = new JPanel();
+	    areaPanePanel.setLayout(new BoxLayout(areaPanePanel, BoxLayout.PAGE_AXIS));
+	    areaPanePanel.add(areaPane);
+	    areaPanePanel.add(editButtonPanel);
+	    
 	    JScrollPane panePane = new JScrollPane(textPane);
 	    panePane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 	    panePane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -104,7 +119,7 @@ public class GeneralView extends AbstractClientView{
 	    JPanel panePanel = new JPanel();
 	    panePanel.setLayout(new BoxLayout(panePanel, BoxLayout.LINE_AXIS));
 	    panePanel.setSize(800, 280);
-	    panePanel.add(areaPane);
+	    panePanel.add(areaPanePanel);
 	    panePanel.add(scrollPanePanel);
 	    
 	    JPanel upPanel = new JPanel();
@@ -114,13 +129,13 @@ public class GeneralView extends AbstractClientView{
 	    
 	    panel.add(upPanel, BorderLayout.NORTH);
 	    panel.add(panePanel, BorderLayout.CENTER);
-	    font = new Font("Arial", 1, 12);
+	    font = new Font("Arial", Font.BOLD, 12);
 	    textArea.setFont(font);
 	}
 	
 	public void deleteModOn() {
 		for(ArticleLink article: articles) {
-			article.switchMod(true);
+			article.setMod(true);
 			delButtonPanel.setVisible(true);
 		}
 	}
@@ -128,19 +143,48 @@ public class GeneralView extends AbstractClientView{
 	public void deleteModOff() {
 		unnecArticles.clear();
 		for(ArticleLink article: articles) {
-			article.switchMod(false);
+			article.setMod(false);
 			delButtonPanel.setVisible(false);
 		}
 	}
 	
 	public void searchModOn() {
 		searchField.setVisible(true);
+		panel.getParent().repaint();
 	}
 	
 	public void searchModOff() {
+		for(ArticleLink  articleLink: articles) {
+			articleLink.getComponent().setVisible(true);
+		}
 		searchField.setVisible(false);
-		searchArticles.clear();
-		repaint();
+		panel.getParent().repaint();
+	}
+	
+	public void editModOn() {
+		if(selectedArticle == null) {
+			JOptionPane.showMessageDialog(new JFrame(), "Please select article", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		textArea.setEditable(true);
+		textArea.setBackground(WHITE);
+		editButtonPanel.setVisible(true);
+	}
+	
+	public void completeEditing () {
+		try {
+			ConnectionController.getClient().editArticle(selectedArticle.getName(), textArea.getText());
+		} catch (ArticleNotFoundException e) {
+			e.printStackTrace();
+		} catch (TException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void editModOff() {
+		textArea.setEditable(false);
+		textArea.setBackground(GRAY);
+		editButtonPanel.setVisible(false);
 	}
 	
 	public void paintArticle(ArticleLink articleLink) {
@@ -190,18 +234,17 @@ public class GeneralView extends AbstractClientView{
 	}
 	
 	public void searchArticles() {
-		searchArticles.clear();
 		String str = searchField.getText();
 		if(str.length() == 0) {
 			JOptionPane.showMessageDialog(new JFrame(), "Searching field is empty", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		for(ArticleLink articleLink: articles) {
-			if(articleLink.getName().contains(str)) {
-				searchArticles.add(new ArticleLink(articleLink.getName(), this));
+			if(!articleLink.getName().contains(str)) {
+				articleLink.getComponent().setVisible(false);
 			}
 		}
-		repaintAsSearchable();
+		panel.getParent().repaint();
 	}
 	
 	public void addArticleToBeDel(ArticleLink articleLink) {
@@ -212,12 +255,8 @@ public class GeneralView extends AbstractClientView{
 		unnecArticles.remove(articleLink);
 	}
 	
-	private void repaintAsSearchable() {
-		textPane.removeAll();
-		for(ArticleLink article: searchArticles) {
-			paintArticle(article);
-		}
-		panel.getParent().repaint();
+	public void setSelectedArticle(ArticleLink articleLink) {
+		selectedArticle = articleLink;
 	}
 	
 	public void repaint() {
@@ -225,8 +264,13 @@ public class GeneralView extends AbstractClientView{
 		for(ArticleLink article: articles) {
 			paintArticle(article);
 		}
+		clear();
+		panel.repaint();
+	}
+	
+	public void clear() {
 		textArea.setText("");
 		label.setText(" ");
-		panel.repaint();
+		selectedArticle = null;
 	}
 }

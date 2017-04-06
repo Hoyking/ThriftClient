@@ -3,9 +3,7 @@ package controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -17,13 +15,18 @@ import javax.swing.JTabbedPane;
 import org.apache.thrift.TException;
 
 import listener.CreateArticleListener;
+import listener.CreateMenuItemListener;
 import listener.DeleteMenuItemListener;
+import listener.EditMenuItemListener;
 import listener.SearchMenuItemListener;
 import view.CreateView;
 import view.GeneralView;
 
 public class ViewController {
 
+	public static final int GENERAL = 0;
+	public static final int SEARCH = 1;
+	
 	private JFrame frame;
 	private GeneralView generalView;
 	private CreateView createView;
@@ -38,7 +41,6 @@ public class ViewController {
 		buildPanels();
 		createTabbedPane();
 		frame.setVisible(true);
-		
 	}
 	
 	private void createTabbedPane() {
@@ -51,14 +53,18 @@ public class ViewController {
         
         JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("      Edit      ");
-		JMenuItem create = new JMenuItem("Create");
-		JMenuItem search = new JMenuItem("Search");
+		JMenuItem create = new JMenuItem("Create article");
+		create.addActionListener(new CreateMenuItemListener(this));
+		JMenuItem search = new JMenuItem("Find articles");
 		search.addActionListener(new SearchMenuItemListener(generalView));
-		JMenuItem delete = new JMenuItem("Delete");
+		JMenuItem delete = new JMenuItem("Delete articles");
 		delete.addActionListener(new DeleteMenuItemListener(generalView));
+		JMenuItem edit = new JMenuItem("Edit article");
+		edit.addActionListener(new EditMenuItemListener(generalView));
 		menu.add(create);
 		menu.add(search);
 		menu.add(delete);
+		menu.add(edit);
 		menuBar.add(menu);
 		menuBar.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
 		
@@ -77,15 +83,10 @@ public class ViewController {
 			e.printStackTrace();
 		}
 		
-		createView = new CreateView(new String("Confirm"));
+		createView = new CreateView();
 		createView.setListener(new CreateArticleListener(this, createView.getTextField(), createView.getTextArea()));
 		createView.decorateView();
-		
 	}
-	
-	/*private void repaint() {
-		frame.setContentPane(tabbedPane);
-	}*/
 	
 	public void removeTitleFromView(String title) {
 		generalView.removeTitle(title);
@@ -98,6 +99,10 @@ public class ViewController {
 	
 	public void loadArticleToView(String name, String value) {
 		generalView.loadArticle(name, value);
+	}
+	
+	public void setSelectedView(int index) {
+		tabbedPane.setSelectedIndex(index);
 	}
 	
 	public static void main(String[] args) {

@@ -5,17 +5,17 @@ import java.awt.event.ActionListener;
 
 import view.GeneralView;
 
-public class DeleteMenuItemListener implements ActionListener {
+public class EditArticleListener implements ActionListener {
 
-	private GeneralView view;
+private GeneralView view;
 	
-	public DeleteMenuItemListener(GeneralView view) {
+	public EditArticleListener(GeneralView view) {
 		this.view = view;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		view.deleteModOn();
+		view.completeEditing();
 		view.editModOff();
 	}
-
+	
 }

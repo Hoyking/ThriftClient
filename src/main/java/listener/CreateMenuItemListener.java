@@ -1,19 +1,20 @@
 package listener;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import view.GeneralView;
+import controller.ViewController;
 
-public class CreateMenuItemListener {
+public class CreateMenuItemListener implements ActionListener {
 
-	private GeneralView view;
+	private ViewController vc;
 	
-	public CreateMenuItemListener(GeneralView view) {
-		this.view = view;
+	public CreateMenuItemListener(ViewController vc) {
+		this.vc = vc;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		view.deleteModOn();
+		vc.setSelectedView(ViewController.SEARCH);
 	}
 	
 }

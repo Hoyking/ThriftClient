@@ -18,9 +18,9 @@ public class CreateView extends AbstractClientView {
 	private JLabel fieldLabel;
 	private JLabel areaLabel;
 	
-	public CreateView(String buttonName) {
+	public CreateView() {
 		field = new JTextField();
-		button = new JButton(buttonName);
+		button = new JButton("Confirm");
 		area = new JTextArea();
 		fieldLabel = new JLabel("Name of article :");
 		areaLabel = new JLabel("Content :");

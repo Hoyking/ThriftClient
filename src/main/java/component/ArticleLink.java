@@ -24,18 +24,18 @@ public class ArticleLink {
 	private GeneralView view;
 	private JTextPane textPane;
 	private String name;
-	private JCheckBox box;
+	private JCheckBox delBox;
 	private Color color;
 	private Container c;
-	private static final Color GRAY = new Color(225, 225, 225);
-	private static final Color WHITE = Color.WHITE;
+	private static final Color SELECTED = new Color(225, 225, 225);
+	private static final Color UNSELECTED = new Color(245, 245, 245);
 	
 	public ArticleLink(String name, GeneralView view) {
 		this.view = view;
 		textPane = new JTextPane();
 		textPane.setEditable(false);
-		box = new JCheckBox();
-		color = WHITE;
+		delBox = new JCheckBox();
+		color = UNSELECTED;
 		c = new Container();
 		this.name = name;
 		buildComponent();
@@ -44,15 +44,16 @@ public class ArticleLink {
 	private void buildComponent() {
 		c.setLayout(new BoxLayout(c, BoxLayout.LINE_AXIS));
 		
-		box.addActionListener(new BoxListener(this));
-		box.setBackground(WHITE);
-		box.setVisible(false);
+		delBox.addActionListener(new BoxListener());
+		delBox.setBackground(color);
+		delBox.setVisible(false);
 		
 		textPane.setContentType("text/html");
 	    textPane.setText("<a href>" + name + "</a>");
 	    textPane.setMaximumSize(new Dimension(2000, 20));
+	    textPane.setBackground(color);
 	    
-	    c.add(box);
+	    c.add(delBox);
 	    c.add(textPane);
 	    
 	    addListener(new HyperlinkListener() {
@@ -65,6 +66,7 @@ public class ArticleLink {
 				try {
 					value = ConnectionController.getClient().getArticle(name).getValue();
 					view.loadArticle(name, value);
+					view.setSelectedArticle(getInstance());
 				} catch(ArticleNotFoundException exception) {
 					System.out.println("FUCK YOU !");
 				} catch(TException exception) {
@@ -75,9 +77,16 @@ public class ArticleLink {
 		});
 	}
 	
-	public void switchMod(boolean mod) {
-		box.setVisible(mod);
-		box.setSelected(false);
+	public void setMod(boolean mod) {
+		delBox.setVisible(mod);
+		delBox.setSelected(false);
+		if(mod == false) {
+			textPane.setBackground(UNSELECTED);
+		}
+	}
+	
+	public boolean getMod() {
+		return delBox.isVisible();
 	}
 	
 	public void addListener(HyperlinkListener listener) {
@@ -92,34 +101,28 @@ public class ArticleLink {
 		return name;
 	}
 	
-	public boolean isSelected() {
-		return box.isSelected();
+	private ArticleLink getInstance() {
+		return this;
 	}
 	
 	private class BoxListener implements ActionListener {
-
-		private ArticleLink articleLink;
-		
-		public BoxListener(ArticleLink articleLink) {
-			this.articleLink = articleLink;
-		}
 		
 		public void actionPerformed(ActionEvent e) {
 			trigger();
 		}
 		
 		private void trigger() {
-			if(color == WHITE) {
-				color = GRAY;
+			if(color == UNSELECTED) {
+				color = SELECTED;
 				textPane.setBackground(color);
-				box.setBackground(color);
-				view.addArticleToBeDel(articleLink);
+				delBox.setBackground(color);
+				view.addArticleToBeDel(getInstance());
 			}
 			else {
-				color = WHITE;
+				color = UNSELECTED;
 				textPane.setBackground(color);
-				box.setBackground(color);
-				view.safeArticle(articleLink);
+				delBox.setBackground(color);
+				view.safeArticle(getInstance());
 			}
 		}
 	}
