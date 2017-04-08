@@ -32,12 +32,8 @@ public class CreateArticleListener implements ActionListener {
 			JOptionPane.showMessageDialog(new JFrame(), "Some field is empty", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		try {
-			ConnectionController.getClient().createArticle(name, value);
-			vc.loadTitleToView(name);
-		} catch (TException exception) {
-			exception.printStackTrace();
-		}
+		ConnectionController.getClientStub().createArticle(name, value);
+		vc.loadTitleToView(name);
 	}
 	
 }

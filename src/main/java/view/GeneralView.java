@@ -29,7 +29,7 @@ import controller.ConnectionController;
 import listener.DeleteArticleListener;
 import listener.EditArticleListener;
 import listener.SearchArticlesListener;
-import service.ArticleNotFoundException;
+import service.rpc.ArticleNotFoundException;
 
 public class GeneralView extends AbstractClientView{
 	
@@ -173,10 +173,8 @@ public class GeneralView extends AbstractClientView{
 	
 	public void completeEditing () {
 		try {
-			ConnectionController.getClient().editArticle(selectedArticle.getName(), textArea.getText());
+			ConnectionController.getClientStub().editArticle(selectedArticle.getName(), textArea.getText());
 		} catch (ArticleNotFoundException e) {
-			e.printStackTrace();
-		} catch (TException e) {
 			e.printStackTrace();
 		}
 	}
@@ -222,10 +220,8 @@ public class GeneralView extends AbstractClientView{
 		for(ArticleLink article: unnecArticles) {
 			articles.remove(article);
 			try {
-				ConnectionController.getClient().deleteArticle(article.getName());
+				ConnectionController.getClientStub().deleteArticle(article.getName());
 			} catch (ArticleNotFoundException e) {
-				e.printStackTrace();
-			} catch (TException e) {
 				e.printStackTrace();
 			}
 		}
@@ -242,6 +238,9 @@ public class GeneralView extends AbstractClientView{
 		for(ArticleLink articleLink: articles) {
 			if(!articleLink.getName().contains(str)) {
 				articleLink.getComponent().setVisible(false);
+			}
+			else {
+				articleLink.getComponent().setVisible(true);
 			}
 		}
 		panel.getParent().repaint();

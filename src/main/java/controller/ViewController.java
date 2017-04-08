@@ -12,8 +12,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
-import org.apache.thrift.TException;
-
 import listener.CreateArticleListener;
 import listener.CreateMenuItemListener;
 import listener.DeleteMenuItemListener;
@@ -77,11 +75,7 @@ public class ViewController {
 	
 	private void buildPanels() {
 		generalView = new GeneralView();
-		try {
-			generalView.loadTitles(ConnectionController.getClient().getTitles());
-		} catch (TException e) {
-			e.printStackTrace();
-		}
+		generalView.loadTitles(ConnectionController.getClientStub().getTitles());
 		
 		createView = new CreateView();
 		createView.setListener(new CreateArticleListener(this, createView.getTextField(), createView.getTextArea()));

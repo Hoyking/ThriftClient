@@ -16,7 +16,7 @@ import javax.swing.event.HyperlinkListener;
 import org.apache.thrift.TException;
 
 import controller.ConnectionController;
-import service.ArticleNotFoundException;
+import service.rpc.ArticleNotFoundException;
 import view.GeneralView;
 
 public class ArticleLink {
@@ -64,13 +64,11 @@ public class ArticleLink {
 				}
 				String value;
 				try {
-					value = ConnectionController.getClient().getArticle(name).getValue();
+					value = ConnectionController.getClientStub().getContent(name);
 					view.loadArticle(name, value);
 					view.setSelectedArticle(getInstance());
 				} catch(ArticleNotFoundException exception) {
-					System.out.println("FUCK YOU !");
-				} catch(TException exception) {
-					exception.printStackTrace();
+					System.out.println("NO !");
 				}
 			}
 			

@@ -19,7 +19,10 @@
     <libthrift.version>0.10.0</libthrift.version>
     
     <junit.version>4.12</junit.version>
-    
+
+    <axis2.version>1.6.3</axis2.version>
+    <axiom.version>1.2.20</axiom.version>
+    <wsdl4j.version>1.6.3</wsdl4j.version>
   </properties>
 
   <dependencies>
@@ -50,6 +53,35 @@
 		<version>${logback.version}</version>
 		<scope>runtime</scope>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.axis2/axis2 -->
+	<!-- <dependency>
+    	<groupId>org.apache.axis2</groupId>
+    	<artifactId>axis2</artifactId>
+    	<version>${axis2.version}</version>
+	</dependency> -->
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.ws.commons.axiom/axiom-api -->
+	<dependency>
+    	<groupId>org.apache.ws.commons.axiom</groupId>
+    	<artifactId>axiom-api</artifactId>
+    	<version>${axiom.version}</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/wsdl4j/wsdl4j -->
+	<dependency>
+	    <groupId>wsdl4j</groupId>
+    	<artifactId>wsdl4j</artifactId>
+    	<version>${wsdl4j.version}</version>
+	</dependency>	
+	
+	<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+	<dependency>
+    	<groupId>commons-logging</groupId>
+    	<artifactId>commons-logging</artifactId>
+    	<version>1.2</version>
+	</dependency>
+	
 	
   </dependencies>
 </project>
