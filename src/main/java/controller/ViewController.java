@@ -99,9 +99,4 @@ public class ViewController {
 		tabbedPane.setSelectedIndex(index);
 	}
 	
-	public static void main(String[] args) {
-		new ConnectionController();
-		new ViewController();
-	}
-	
 }

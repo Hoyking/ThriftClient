@@ -5,7 +5,7 @@ import java.util.List;
 import service.rpc.ArticleNotFoundException;
 
 public interface ClientStub {
-
+	
 	public String getContent(String name) throws ArticleNotFoundException;
 
     public List<String> getTitles();

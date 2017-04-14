@@ -10,8 +10,18 @@ public class ClientRPCStub implements ClientStub {
 
 	ArticleService.Client client;
 	
-	public ClientRPCStub(ArticleService.Client client) {
+	public ClientRPCStub(ArticleService.Client client) throws TException {
 		this.client = client;
+		checkConnection();
+	}
+	
+	private void checkConnection() throws TException {
+		try {
+			client.getContent("");
+		} catch(ArticleNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public List<String> getTitles() {

@@ -4,21 +4,25 @@ import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import org.apache.axis2.AxisFault;
-import org.apache.thrift.TException;
 
 import service.ClientStub;
 import service.rpc.ArticleNotFoundException;
-import service.rpc.ArticleService;
 
 public class ClientSoapStub implements ClientStub {
 	
 	private AxisDirectoryStub stub;
 	
-	public ClientSoapStub(AxisDirectoryStub stub) {
+	public ClientSoapStub(AxisDirectoryStub stub) throws RemoteException {
 		this.stub = stub;
+		checkConnection();
+	}
+	
+	private void checkConnection() throws RemoteException {
+		AxisDirectoryStub.GetContent method = new AxisDirectoryStub.GetContent();
+		method.setName("");
+		AxisDirectoryStub.GetContentResponse methodResponse = stub.getContent(method);
+		methodResponse.get_return();
 	}
 	
 	public List<String> getTitles() {

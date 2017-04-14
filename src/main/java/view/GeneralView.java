@@ -22,8 +22,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-import org.apache.thrift.TException;
-
 import component.ArticleLink;
 import controller.ConnectionController;
 import listener.DeleteArticleListener;
