@@ -10,14 +10,24 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+/** Класс-представление для создания статьи 
+ * 
+ * @author Parfenenko Artem
+ * @version 1.0
+ *
+ */
 public class CreateView extends AbstractClientView {
 	
+	/** Кнопка для подтверждения создания статьи */
 	private JButton button;
+	/** Текстовое поле для ввода названия статьи */
 	private JTextField field;
+	/** Текстовая область для ввода содержимого статьи */
 	private JTextArea area;
 	private JLabel fieldLabel;
 	private JLabel areaLabel;
 	
+	/** Конструктор класса для инициализации переменных */
 	public CreateView() {
 		field = new JTextField();
 		button = new JButton("Confirm");
@@ -38,6 +48,7 @@ public class CreateView extends AbstractClientView {
 		return area;
 	}
 	
+	/** Метод для формирования представления */
 	@Override
 	public void decorateView() {
 		panel.setLayout(null);

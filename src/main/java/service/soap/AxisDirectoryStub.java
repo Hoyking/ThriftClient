@@ -10,12 +10,13 @@ package service.soap;
 /*
  *  AxisDirectoryStub java implementation
  */
+@SuppressWarnings({"rawtypes", "unchecked", "unused", "serial"})
 public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
     private static int counter = 0;
     protected org.apache.axis2.description.AxisOperation[] _operations;
 
     //hashmaps to keep the fault mapping
-    private java.util.HashMap faultExceptionNameMap = new java.util.HashMap();
+	private java.util.HashMap faultExceptionNameMap = new java.util.HashMap();
     private java.util.HashMap faultExceptionClassNameMap = new java.util.HashMap();
     private java.util.HashMap faultMessageMap = new java.util.HashMap();
     private javax.xml.namespace.QName[] opNameArray = null;
@@ -102,7 +103,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
         _operations = new org.apache.axis2.description.AxisOperation[6];
 
-        __operation = new org.apache.axis2.description.OutOnlyAxisOperation();
+        __operation = new org.apache.axis2.description.OutInAxisOperation();
 
         __operation.setName(new javax.xml.namespace.QName(
                 "http://soap.service", "editArticle"));
@@ -118,7 +119,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
         _operations[1] = __operation;
 
-        __operation = new org.apache.axis2.description.OutOnlyAxisOperation();
+        __operation = new org.apache.axis2.description.OutInAxisOperation();
 
         __operation.setName(new javax.xml.namespace.QName(
                 "http://soap.service", "deleteArticle"));
@@ -153,17 +154,168 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
     //populates the faults
     private void populateFaults() {
+        faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "editArticle"),
+            "service.soap.AxisDirectoryArticleNotFoundFaultException");
+        faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "editArticle"),
+            "service.soap.AxisDirectoryArticleNotFoundFaultException");
+        faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "editArticle"),
+            "service.soap.AxisDirectoryStub$AxisDirectoryArticleNotFoundFault");
+
+        faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "deleteArticle"),
+            "service.soap.AxisDirectoryArticleNotFoundFaultException");
+        faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "deleteArticle"),
+            "service.soap.AxisDirectoryArticleNotFoundFaultException");
+        faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "deleteArticle"),
+            "service.soap.AxisDirectoryStub$AxisDirectoryArticleNotFoundFault");
+
+        faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "getContent"),
+            "service.soap.AxisDirectoryArticleNotFoundFaultException");
+        faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "getContent"),
+            "service.soap.AxisDirectoryArticleNotFoundFaultException");
+        faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(
+                new javax.xml.namespace.QName("http://soap.service",
+                    "AxisDirectoryArticleNotFoundFault"), "getContent"),
+            "service.soap.AxisDirectoryStub$AxisDirectoryArticleNotFoundFault");
     }
 
     /**
      * Auto generated method signature
      *
+     * @see service.soap.AxisDirectory#editArticle
+     * @param editArticle2
+     * @throws service.soap.AxisDirectoryArticleNotFoundFaultException :
      */
     public void editArticle(
-        service.soap.AxisDirectoryStub.EditArticle editArticle0)
-        throws java.rmi.RemoteException {
+        service.soap.AxisDirectoryStub.EditArticle editArticle2)
+        throws java.rmi.RemoteException,
+            service.soap.AxisDirectoryArticleNotFoundFaultException {
         org.apache.axis2.context.MessageContext _messageContext = null;
 
+        try {
+            org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
+            _operationClient.getOptions().setAction("urn:editArticle");
+            _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+            addPropertyToOperationClient(_operationClient,
+                org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+                "&");
+
+            // create a message context
+            _messageContext = new org.apache.axis2.context.MessageContext();
+
+            // create SOAP envelope with that payload
+            org.apache.axiom.soap.SOAPEnvelope env = null;
+
+            env = toEnvelope(getFactory(_operationClient.getOptions()
+                                                        .getSoapVersionURI()),
+                    editArticle2,
+                    optimizeContent(
+                        new javax.xml.namespace.QName("http://soap.service",
+                            "editArticle")),
+                    new javax.xml.namespace.QName("http://soap.service",
+                        "editArticle"));
+
+            //adding SOAP soap_headers
+            _serviceClient.addHeadersToEnvelope(env);
+            // set the message context with that soap envelope
+            _messageContext.setEnvelope(env);
+
+            // add the message contxt to the operation client
+            _operationClient.addMessageContext(_messageContext);
+
+            //execute the operation client
+            _operationClient.execute(true);
+
+            return;
+        } catch (org.apache.axis2.AxisFault f) {
+            org.apache.axiom.om.OMElement faultElt = f.getDetail();
+
+            if (faultElt != null) {
+                if (faultExceptionNameMap.containsKey(
+                            new org.apache.axis2.client.FaultMapKey(
+                                faultElt.getQName(), "editArticle"))) {
+                    //make the fault by reflection
+                    try {
+                        java.lang.String exceptionClassName = (java.lang.String) faultExceptionClassNameMap.get(new org.apache.axis2.client.FaultMapKey(
+                                    faultElt.getQName(), "editArticle"));
+                        java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+                        java.lang.reflect.Constructor constructor = exceptionClass.getConstructor(java.lang.String.class);
+                        java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+
+                        //message class
+                        java.lang.String messageClassName = (java.lang.String) faultMessageMap.get(new org.apache.axis2.client.FaultMapKey(
+                                    faultElt.getQName(), "editArticle"));
+                        java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+                        java.lang.Object messageObject = fromOM(faultElt,
+                                messageClass, null);
+                        java.lang.reflect.Method m = exceptionClass.getMethod("setFaultMessage",
+                                new java.lang.Class[] { messageClass });
+                        m.invoke(ex, new java.lang.Object[] { messageObject });
+
+                        if (ex instanceof service.soap.AxisDirectoryArticleNotFoundFaultException) {
+                            throw (service.soap.AxisDirectoryArticleNotFoundFaultException) ex;
+                        }
+
+                        throw new java.rmi.RemoteException(ex.getMessage(), ex);
+                    } catch (java.lang.ClassCastException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.ClassNotFoundException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.NoSuchMethodException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.reflect.InvocationTargetException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.IllegalAccessException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.InstantiationException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    }
+                } else {
+                    throw f;
+                }
+            } else {
+                throw f;
+            }
+        } finally {
+            if (_messageContext.getTransportOut() != null) {
+                _messageContext.getTransportOut().getSender()
+                               .cleanup(_messageContext);
+            }
+        }
+    }
+
+    /**
+     * Auto generated method signature for Asynchronous Invocations
+     *
+     * @see service.soap.AxisDirectory#starteditArticle
+     * @param editArticle2
+     */
+    public void starteditArticle(
+        service.soap.AxisDirectoryStub.EditArticle editArticle2,
+        final service.soap.AxisDirectoryCallbackHandler callback)
+        throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[0].getName());
         _operationClient.getOptions().setAction("urn:editArticle");
         _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
@@ -172,35 +324,39 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
             org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
             "&");
 
+        // create SOAP envelope with that payload
         org.apache.axiom.soap.SOAPEnvelope env = null;
-        _messageContext = new org.apache.axis2.context.MessageContext();
+        final org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
         //Style is Doc.
         env = toEnvelope(getFactory(_operationClient.getOptions()
                                                     .getSoapVersionURI()),
-                editArticle0,
+                editArticle2,
                 optimizeContent(
                     new javax.xml.namespace.QName("http://soap.service",
                         "editArticle")),
                 new javax.xml.namespace.QName("http://soap.service",
                     "editArticle"));
 
-        //adding SOAP soap_headers
+        // adding SOAP soap_headers
         _serviceClient.addHeadersToEnvelope(env);
         // create message context with that soap envelope
         _messageContext.setEnvelope(env);
 
-        // add the message contxt to the operation client
+        // add the message context to the operation client
         _operationClient.addMessageContext(_messageContext);
 
-        _operationClient.execute(true);
+        // Nothing to pass as the callback!!!
+        org.apache.axis2.util.CallbackReceiver _callbackReceiver = null;
 
-        if (_messageContext.getTransportOut() != null) {
-            _messageContext.getTransportOut().getSender()
-                           .cleanup(_messageContext);
+        if ((_operations[0].getMessageReceiver() == null) &&
+                _operationClient.getOptions().isUseSeparateListener()) {
+            _callbackReceiver = new org.apache.axis2.util.CallbackReceiver();
+            _operations[0].setMessageReceiver(_callbackReceiver);
         }
 
-        return;
+        //execute the operation client
+        _operationClient.execute(false);
     }
 
     /**
@@ -208,7 +364,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
      *
      */
     public void deleteArticles(
-        service.soap.AxisDirectoryStub.DeleteArticles deleteArticles1)
+        service.soap.AxisDirectoryStub.DeleteArticles deleteArticles4)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = null;
 
@@ -226,7 +382,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         //Style is Doc.
         env = toEnvelope(getFactory(_operationClient.getOptions()
                                                     .getSoapVersionURI()),
-                deleteArticles1,
+                deleteArticles4,
                 optimizeContent(
                     new javax.xml.namespace.QName("http://soap.service",
                         "deleteArticles")),
@@ -254,12 +410,125 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
     /**
      * Auto generated method signature
      *
+     * @see service.soap.AxisDirectory#deleteArticle
+     * @param deleteArticle5
+     * @throws service.soap.AxisDirectoryArticleNotFoundFaultException :
      */
     public void deleteArticle(
-        service.soap.AxisDirectoryStub.DeleteArticle deleteArticle2)
-        throws java.rmi.RemoteException {
+        service.soap.AxisDirectoryStub.DeleteArticle deleteArticle5)
+        throws java.rmi.RemoteException,
+            service.soap.AxisDirectoryArticleNotFoundFaultException {
         org.apache.axis2.context.MessageContext _messageContext = null;
 
+        try {
+            org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[2].getName());
+            _operationClient.getOptions().setAction("urn:deleteArticle");
+            _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+            addPropertyToOperationClient(_operationClient,
+                org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+                "&");
+
+            // create a message context
+            _messageContext = new org.apache.axis2.context.MessageContext();
+
+            // create SOAP envelope with that payload
+            org.apache.axiom.soap.SOAPEnvelope env = null;
+
+            env = toEnvelope(getFactory(_operationClient.getOptions()
+                                                        .getSoapVersionURI()),
+                    deleteArticle5,
+                    optimizeContent(
+                        new javax.xml.namespace.QName("http://soap.service",
+                            "deleteArticle")),
+                    new javax.xml.namespace.QName("http://soap.service",
+                        "deleteArticle"));
+
+            //adding SOAP soap_headers
+            _serviceClient.addHeadersToEnvelope(env);
+            // set the message context with that soap envelope
+            _messageContext.setEnvelope(env);
+
+            // add the message contxt to the operation client
+            _operationClient.addMessageContext(_messageContext);
+
+            //execute the operation client
+            _operationClient.execute(true);
+
+            return;
+        } catch (org.apache.axis2.AxisFault f) {
+            org.apache.axiom.om.OMElement faultElt = f.getDetail();
+
+            if (faultElt != null) {
+                if (faultExceptionNameMap.containsKey(
+                            new org.apache.axis2.client.FaultMapKey(
+                                faultElt.getQName(), "deleteArticle"))) {
+                    //make the fault by reflection
+                    try {
+                        java.lang.String exceptionClassName = (java.lang.String) faultExceptionClassNameMap.get(new org.apache.axis2.client.FaultMapKey(
+                                    faultElt.getQName(), "deleteArticle"));
+                        java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+                        java.lang.reflect.Constructor constructor = exceptionClass.getConstructor(java.lang.String.class);
+                        java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+
+                        //message class
+                        java.lang.String messageClassName = (java.lang.String) faultMessageMap.get(new org.apache.axis2.client.FaultMapKey(
+                                    faultElt.getQName(), "deleteArticle"));
+                        java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+                        java.lang.Object messageObject = fromOM(faultElt,
+                                messageClass, null);
+                        java.lang.reflect.Method m = exceptionClass.getMethod("setFaultMessage",
+                                new java.lang.Class[] { messageClass });
+                        m.invoke(ex, new java.lang.Object[] { messageObject });
+
+                        if (ex instanceof service.soap.AxisDirectoryArticleNotFoundFaultException) {
+                            throw (service.soap.AxisDirectoryArticleNotFoundFaultException) ex;
+                        }
+
+                        throw new java.rmi.RemoteException(ex.getMessage(), ex);
+                    } catch (java.lang.ClassCastException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.ClassNotFoundException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.NoSuchMethodException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.reflect.InvocationTargetException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.IllegalAccessException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    } catch (java.lang.InstantiationException e) {
+                        // we cannot intantiate the class - throw the original Axis fault
+                        throw f;
+                    }
+                } else {
+                    throw f;
+                }
+            } else {
+                throw f;
+            }
+        } finally {
+            if (_messageContext.getTransportOut() != null) {
+                _messageContext.getTransportOut().getSender()
+                               .cleanup(_messageContext);
+            }
+        }
+    }
+
+    /**
+     * Auto generated method signature for Asynchronous Invocations
+     *
+     * @see service.soap.AxisDirectory#startdeleteArticle
+     * @param deleteArticle5
+     */
+    public void startdeleteArticle(
+        service.soap.AxisDirectoryStub.DeleteArticle deleteArticle5,
+        final service.soap.AxisDirectoryCallbackHandler callback)
+        throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[2].getName());
         _operationClient.getOptions().setAction("urn:deleteArticle");
         _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
@@ -268,35 +537,39 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
             org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
             "&");
 
+        // create SOAP envelope with that payload
         org.apache.axiom.soap.SOAPEnvelope env = null;
-        _messageContext = new org.apache.axis2.context.MessageContext();
+        final org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
 
         //Style is Doc.
         env = toEnvelope(getFactory(_operationClient.getOptions()
                                                     .getSoapVersionURI()),
-                deleteArticle2,
+                deleteArticle5,
                 optimizeContent(
                     new javax.xml.namespace.QName("http://soap.service",
                         "deleteArticle")),
                 new javax.xml.namespace.QName("http://soap.service",
                     "deleteArticle"));
 
-        //adding SOAP soap_headers
+        // adding SOAP soap_headers
         _serviceClient.addHeadersToEnvelope(env);
         // create message context with that soap envelope
         _messageContext.setEnvelope(env);
 
-        // add the message contxt to the operation client
+        // add the message context to the operation client
         _operationClient.addMessageContext(_messageContext);
 
-        _operationClient.execute(true);
+        // Nothing to pass as the callback!!!
+        org.apache.axis2.util.CallbackReceiver _callbackReceiver = null;
 
-        if (_messageContext.getTransportOut() != null) {
-            _messageContext.getTransportOut().getSender()
-                           .cleanup(_messageContext);
+        if ((_operations[2].getMessageReceiver() == null) &&
+                _operationClient.getOptions().isUseSeparateListener()) {
+            _callbackReceiver = new org.apache.axis2.util.CallbackReceiver();
+            _operations[2].setMessageReceiver(_callbackReceiver);
         }
 
-        return;
+        //execute the operation client
+        _operationClient.execute(false);
     }
 
     /**
@@ -304,7 +577,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
      *
      */
     public void createArticle(
-        service.soap.AxisDirectoryStub.CreateArticle createArticle3)
+        service.soap.AxisDirectoryStub.CreateArticle createArticle7)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = null;
 
@@ -322,7 +595,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         //Style is Doc.
         env = toEnvelope(getFactory(_operationClient.getOptions()
                                                     .getSoapVersionURI()),
-                createArticle3,
+                createArticle7,
                 optimizeContent(
                     new javax.xml.namespace.QName("http://soap.service",
                         "createArticle")),
@@ -351,11 +624,13 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
      * Auto generated method signature
      *
      * @see service.soap.AxisDirectory#getContent
-     * @param getContent4
+     * @param getContent8
+     * @throws service.soap.AxisDirectoryArticleNotFoundFaultException :
      */
     public service.soap.AxisDirectoryStub.GetContentResponse getContent(
-        service.soap.AxisDirectoryStub.GetContent getContent4)
-        throws java.rmi.RemoteException {
+        service.soap.AxisDirectoryStub.GetContent getContent8)
+        throws java.rmi.RemoteException,
+            service.soap.AxisDirectoryArticleNotFoundFaultException {
         org.apache.axis2.context.MessageContext _messageContext = null;
 
         try {
@@ -375,7 +650,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
-                    getContent4,
+                    getContent8,
                     optimizeContent(
                         new javax.xml.namespace.QName("http://soap.service",
                             "getContent")),
@@ -427,6 +702,10 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
                                 new java.lang.Class[] { messageClass });
                         m.invoke(ex, new java.lang.Object[] { messageObject });
 
+                        if (ex instanceof service.soap.AxisDirectoryArticleNotFoundFaultException) {
+                            throw (service.soap.AxisDirectoryArticleNotFoundFaultException) ex;
+                        }
+
                         throw new java.rmi.RemoteException(ex.getMessage(), ex);
                     } catch (java.lang.ClassCastException e) {
                         // we cannot intantiate the class - throw the original Axis fault
@@ -465,10 +744,10 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
      * Auto generated method signature for Asynchronous Invocations
      *
      * @see service.soap.AxisDirectory#startgetContent
-     * @param getContent4
+     * @param getContent8
      */
     public void startgetContent(
-        service.soap.AxisDirectoryStub.GetContent getContent4,
+        service.soap.AxisDirectoryStub.GetContent getContent8,
         final service.soap.AxisDirectoryCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[4].getName());
@@ -486,7 +765,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         //Style is Doc.
         env = toEnvelope(getFactory(_operationClient.getOptions()
                                                     .getSoapVersionURI()),
-                getContent4,
+                getContent8,
                 optimizeContent(
                     new javax.xml.namespace.QName("http://soap.service",
                         "getContent")),
@@ -546,6 +825,12 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
                                             new java.lang.Class[] { messageClass });
                                     m.invoke(ex,
                                         new java.lang.Object[] { messageObject });
+
+                                    if (ex instanceof service.soap.AxisDirectoryArticleNotFoundFaultException) {
+                                        callback.receiveErrorgetContent((service.soap.AxisDirectoryArticleNotFoundFaultException) ex);
+
+                                        return;
+                                    }
 
                                     callback.receiveErrorgetContent(new java.rmi.RemoteException(
                                             ex.getMessage(), ex));
@@ -614,10 +899,10 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
      * Auto generated method signature
      *
      * @see service.soap.AxisDirectory#getTitles
-     * @param getTitles6
+     * @param getTitles10
      */
     public service.soap.AxisDirectoryStub.GetTitlesResponse getTitles(
-        service.soap.AxisDirectoryStub.GetTitles getTitles6)
+        service.soap.AxisDirectoryStub.GetTitles getTitles10)
         throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = null;
 
@@ -638,7 +923,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
             env = toEnvelope(getFactory(_operationClient.getOptions()
                                                         .getSoapVersionURI()),
-                    getTitles6,
+                    getTitles10,
                     optimizeContent(
                         new javax.xml.namespace.QName("http://soap.service",
                             "getTitles")),
@@ -728,10 +1013,10 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
      * Auto generated method signature for Asynchronous Invocations
      *
      * @see service.soap.AxisDirectory#startgetTitles
-     * @param getTitles6
+     * @param getTitles10
      */
     public void startgetTitles(
-        service.soap.AxisDirectoryStub.GetTitles getTitles6,
+        service.soap.AxisDirectoryStub.GetTitles getTitles10,
         final service.soap.AxisDirectoryCallbackHandler callback)
         throws java.rmi.RemoteException {
         org.apache.axis2.client.OperationClient _operationClient = _serviceClient.createClient(_operations[5].getName());
@@ -749,7 +1034,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         //Style is Doc.
         env = toEnvelope(getFactory(_operationClient.getOptions()
                                                     .getSoapVersionURI()),
-                getTitles6,
+                getTitles10,
                 optimizeContent(
                     new javax.xml.namespace.QName("http://soap.service",
                         "getTitles")),
@@ -905,6 +1190,17 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         boolean optimizeContent) throws org.apache.axis2.AxisFault {
         try {
             return param.getOMElement(service.soap.AxisDirectoryStub.EditArticle.MY_QNAME,
+                org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+        } catch (org.apache.axis2.databinding.ADBException e) {
+            throw org.apache.axis2.AxisFault.makeFault(e);
+        }
+    }
+
+    private org.apache.axiom.om.OMElement toOM(
+        service.soap.AxisDirectoryStub.AxisDirectoryArticleNotFoundFault param,
+        boolean optimizeContent) throws org.apache.axis2.AxisFault {
+        try {
+            return param.getOMElement(service.soap.AxisDirectoryStub.AxisDirectoryArticleNotFoundFault.MY_QNAME,
                 org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         } catch (org.apache.axis2.databinding.ADBException e) {
             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1112,6 +1408,11 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         java.lang.Class type, java.util.Map extraNamespaces)
         throws org.apache.axis2.AxisFault {
         try {
+            if (service.soap.AxisDirectoryStub.AxisDirectoryArticleNotFoundFault.class.equals(
+                        type)) {
+                return service.soap.AxisDirectoryStub.AxisDirectoryArticleNotFoundFault.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            }
+
             if (service.soap.AxisDirectoryStub.CreateArticle.class.equals(type)) {
                 return service.soap.AxisDirectoryStub.CreateArticle.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
@@ -1155,7 +1456,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
     //http://localhost:8080/WebServiceProject/services/AxisDirectory.AxisDirectoryHttpSoap12Endpoint/
     public static class DeleteArticle implements org.apache.axis2.databinding.ADBBean {
         public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
-                "deleteArticle", "ns1");
+                "deleteArticle", "ns2");
 
         /**
          * field for Name
@@ -1263,7 +1564,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         private static java.lang.String generatePrefix(
             java.lang.String namespace) {
             if (namespace.equals("http://soap.service")) {
-                return "ns1";
+                return "ns2";
             }
 
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -1590,7 +1891,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
     public static class GetTitles implements org.apache.axis2.databinding.ADBBean {
         public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
-                "getTitles", "ns1");
+                "getTitles", "ns2");
 
         /**
          *
@@ -1649,7 +1950,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         private static java.lang.String generatePrefix(
             java.lang.String namespace) {
             if (namespace.equals("http://soap.service")) {
-                return "ns1";
+                return "ns2";
             }
 
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -1943,6 +2244,11 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         public static java.lang.Object getTypeObject(
             java.lang.String namespaceURI, java.lang.String typeName,
             javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
+            if ("http://soap.service/xsd".equals(namespaceURI) &&
+                    "ArticleNotFoundFault".equals(typeName)) {
+                return ArticleNotFoundFault.Factory.parse(reader);
+            }
+
             throw new org.apache.axis2.databinding.ADBException(
                 "Unsupported type " + namespaceURI + " " + typeName);
         }
@@ -1950,7 +2256,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
     public static class GetTitlesResponse implements org.apache.axis2.databinding.ADBBean {
         public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
-                "getTitlesResponse", "ns1");
+                "getTitlesResponse", "ns2");
 
         /**
          * field for _return
@@ -2106,7 +2412,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         private static java.lang.String generatePrefix(
             java.lang.String namespace) {
             if (namespace.equals("http://soap.service")) {
-                return "ns1";
+                return "ns2";
             }
 
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -2490,7 +2796,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
     public static class DeleteArticles implements org.apache.axis2.databinding.ADBBean {
         public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
-                "deleteArticles", "ns1");
+                "deleteArticles", "ns2");
 
         /**
          *
@@ -2549,7 +2855,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         private static java.lang.String generatePrefix(
             java.lang.String namespace) {
             if (namespace.equals("http://soap.service")) {
-                return "ns1";
+                return "ns2";
             }
 
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -2839,74 +3145,41 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         } //end of factory class
     }
 
-    public static class EditArticle implements org.apache.axis2.databinding.ADBBean {
+    public static class AxisDirectoryArticleNotFoundFault implements org.apache.axis2.databinding.ADBBean {
         public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
-                "editArticle", "ns1");
+                "AxisDirectoryArticleNotFoundFault", "ns2");
 
         /**
-         * field for Name
+         * field for ArticleNotFoundFault
          */
-        protected java.lang.String localName;
+        protected ArticleNotFoundFault localArticleNotFoundFault;
 
         /*  This tracker boolean wil be used to detect whether the user called the set method
          *   for this attribute. It will be used to determine whether to include this field
          *   in the serialized XML
          */
-        protected boolean localNameTracker = false;
+        protected boolean localArticleNotFoundFaultTracker = false;
 
-        /**
-         * field for Value
-         */
-        protected java.lang.String localValue;
-
-        /*  This tracker boolean wil be used to detect whether the user called the set method
-         *   for this attribute. It will be used to determine whether to include this field
-         *   in the serialized XML
-         */
-        protected boolean localValueTracker = false;
-
-        public boolean isNameSpecified() {
-            return localNameTracker;
+        public boolean isArticleNotFoundFaultSpecified() {
+            return localArticleNotFoundFaultTracker;
         }
 
         /**
          * Auto generated getter method
-         * @return java.lang.String
+         * @return ArticleNotFoundFault
          */
-        public java.lang.String getName() {
-            return localName;
+        public ArticleNotFoundFault getArticleNotFoundFault() {
+            return localArticleNotFoundFault;
         }
 
         /**
          * Auto generated setter method
-         * @param param Name
+         * @param param ArticleNotFoundFault
          */
-        public void setName(java.lang.String param) {
-            localNameTracker = true;
+        public void setArticleNotFoundFault(ArticleNotFoundFault param) {
+            localArticleNotFoundFaultTracker = true;
 
-            this.localName = param;
-        }
-
-        public boolean isValueSpecified() {
-            return localValueTracker;
-        }
-
-        /**
-         * Auto generated getter method
-         * @return java.lang.String
-         */
-        public java.lang.String getValue() {
-            return localValue;
-        }
-
-        /**
-         * Auto generated setter method
-         * @param param Value
-         */
-        public void setValue(java.lang.String param) {
-            localValueTracker = true;
-
-            this.localValue = param;
+            this.localArticleNotFoundFault = param;
         }
 
         /**
@@ -2952,44 +3225,30 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
                         (namespacePrefix.trim().length() > 0)) {
                     writeAttribute("xsi",
                         "http://www.w3.org/2001/XMLSchema-instance", "type",
-                        namespacePrefix + ":editArticle", xmlWriter);
+                        namespacePrefix + ":AxisDirectoryArticleNotFoundFault",
+                        xmlWriter);
                 } else {
                     writeAttribute("xsi",
                         "http://www.w3.org/2001/XMLSchema-instance", "type",
-                        "editArticle", xmlWriter);
+                        "AxisDirectoryArticleNotFoundFault", xmlWriter);
                 }
             }
 
-            if (localNameTracker) {
-                namespace = "http://soap.service";
-                writeStartElement(null, namespace, "name", xmlWriter);
+            if (localArticleNotFoundFaultTracker) {
+                if (localArticleNotFoundFault == null) {
+                    writeStartElement(null, "http://soap.service",
+                        "ArticleNotFoundFault", xmlWriter);
 
-                if (localName == null) {
                     // write the nil attribute
                     writeAttribute("xsi",
                         "http://www.w3.org/2001/XMLSchema-instance", "nil",
                         "1", xmlWriter);
+                    xmlWriter.writeEndElement();
                 } else {
-                    xmlWriter.writeCharacters(localName);
+                    localArticleNotFoundFault.serialize(new javax.xml.namespace.QName(
+                            "http://soap.service", "ArticleNotFoundFault"),
+                        xmlWriter);
                 }
-
-                xmlWriter.writeEndElement();
-            }
-
-            if (localValueTracker) {
-                namespace = "http://soap.service";
-                writeStartElement(null, namespace, "value", xmlWriter);
-
-                if (localValue == null) {
-                    // write the nil attribute
-                    writeAttribute("xsi",
-                        "http://www.w3.org/2001/XMLSchema-instance", "nil",
-                        "1", xmlWriter);
-                } else {
-                    xmlWriter.writeCharacters(localValue);
-                }
-
-                xmlWriter.writeEndElement();
             }
 
             xmlWriter.writeEndElement();
@@ -2998,7 +3257,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         private static java.lang.String generatePrefix(
             java.lang.String namespace) {
             if (namespace.equals("http://soap.service")) {
-                return "ns1";
+                return "ns2";
             }
 
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -3206,13 +3465,556 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
             java.util.ArrayList elementList = new java.util.ArrayList();
             java.util.ArrayList attribList = new java.util.ArrayList();
 
-            if (localNameTracker) {
+            if (localArticleNotFoundFaultTracker) {
                 elementList.add(new javax.xml.namespace.QName(
-                        "http://soap.service", "name"));
+                        "http://soap.service", "ArticleNotFoundFault"));
 
-                elementList.add((localName == null) ? null
-                                                    : org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localName));
+                elementList.add((localArticleNotFoundFault == null) ? null
+                                                                    : localArticleNotFoundFault);
+            }
+
+            return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName,
+                elementList.toArray(), attribList.toArray());
+        }
+
+        /**
+         *  Factory class that keeps the parse method
+         */
+        public static class Factory {
+            /**
+             * static method to create the object
+             * Precondition:  If this object is an element, the current or next start element starts this object and any intervening reader events are ignorable
+             *                If this object is not an element, it is a complex type and the reader is at the event just after the outer start element
+             * Postcondition: If this object is an element, the reader is positioned at its end element
+             *                If this object is a complex type, the reader is positioned at the end element of its outer element
+             */
+            public static AxisDirectoryArticleNotFoundFault parse(
+                javax.xml.stream.XMLStreamReader reader)
+                throws java.lang.Exception {
+                AxisDirectoryArticleNotFoundFault object = new AxisDirectoryArticleNotFoundFault();
+
+                int event;
+                java.lang.String nillableValue = null;
+                java.lang.String prefix = "";
+                java.lang.String namespaceuri = "";
+
+                try {
+                    while (!reader.isStartElement() && !reader.isEndElement())
+                        reader.next();
+
+                    if (reader.getAttributeValue(
+                                "http://www.w3.org/2001/XMLSchema-instance",
+                                "type") != null) {
+                        java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
+                                "type");
+
+                        if (fullTypeName != null) {
+                            java.lang.String nsPrefix = null;
+
+                            if (fullTypeName.indexOf(":") > -1) {
+                                nsPrefix = fullTypeName.substring(0,
+                                        fullTypeName.indexOf(":"));
+                            }
+
+                            nsPrefix = (nsPrefix == null) ? "" : nsPrefix;
+
+                            java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(
+                                        ":") + 1);
+
+                            if (!"AxisDirectoryArticleNotFoundFault".equals(
+                                        type)) {
+                                //find namespace for the prefix
+                                java.lang.String nsUri = reader.getNamespaceContext()
+                                                               .getNamespaceURI(nsPrefix);
+
+                                return (AxisDirectoryArticleNotFoundFault) ExtensionMapper.getTypeObject(nsUri,
+                                    type, reader);
+                            }
+                        }
+                    }
+
+                    // Note all attributes that were handled. Used to differ normal attributes
+                    // from anyAttributes.
+                    java.util.Vector handledAttributes = new java.util.Vector();
+
+                    reader.next();
+
+                    while (!reader.isStartElement() && !reader.isEndElement())
+                        reader.next();
+
+                    if (reader.isStartElement() &&
+                            new javax.xml.namespace.QName(
+                                "http://soap.service", "ArticleNotFoundFault").equals(
+                                reader.getName())) {
+                        nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
+                                "nil");
+
+                        if ("true".equals(nillableValue) ||
+                                "1".equals(nillableValue)) {
+                            object.setArticleNotFoundFault(null);
+                            reader.next();
+
+                            reader.next();
+                        } else {
+                            object.setArticleNotFoundFault(ArticleNotFoundFault.Factory.parse(
+                                    reader));
+
+                            reader.next();
+                        }
+                    } // End of if for expected property start element
+
+                    else {
+                    }
+
+                    while (!reader.isStartElement() && !reader.isEndElement())
+                        reader.next();
+
+                    if (reader.isStartElement()) {
+                        // A start element we are not expecting indicates a trailing invalid property
+                        throw new org.apache.axis2.databinding.ADBException(
+                            "Unexpected subelement " + reader.getName());
+                    }
+                } catch (javax.xml.stream.XMLStreamException e) {
+                    throw new java.lang.Exception(e);
+                }
+
+                return object;
+            }
+        } //end of factory class
+    }
+
+    public static class EditArticle implements org.apache.axis2.databinding.ADBBean {
+        public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
+                "editArticle", "ns2");
+
+        /**
+         * field for OldName
+         */
+        protected java.lang.String localOldName;
+
+        /*  This tracker boolean wil be used to detect whether the user called the set method
+         *   for this attribute. It will be used to determine whether to include this field
+         *   in the serialized XML
+         */
+        protected boolean localOldNameTracker = false;
+
+        /**
+         * field for NewName
+         */
+        protected java.lang.String localNewName;
+
+        /*  This tracker boolean wil be used to detect whether the user called the set method
+         *   for this attribute. It will be used to determine whether to include this field
+         *   in the serialized XML
+         */
+        protected boolean localNewNameTracker = false;
+
+        /**
+         * field for Value
+         */
+        protected java.lang.String localValue;
+
+        /*  This tracker boolean wil be used to detect whether the user called the set method
+         *   for this attribute. It will be used to determine whether to include this field
+         *   in the serialized XML
+         */
+        protected boolean localValueTracker = false;
+
+        public boolean isOldNameSpecified() {
+            return localOldNameTracker;
+        }
+
+        /**
+         * Auto generated getter method
+         * @return java.lang.String
+         */
+        public java.lang.String getOldName() {
+            return localOldName;
+        }
+
+        /**
+         * Auto generated setter method
+         * @param param OldName
+         */
+        public void setOldName(java.lang.String param) {
+            localOldNameTracker = true;
+
+            this.localOldName = param;
+        }
+
+        public boolean isNewNameSpecified() {
+            return localNewNameTracker;
+        }
+
+        /**
+         * Auto generated getter method
+         * @return java.lang.String
+         */
+        public java.lang.String getNewName() {
+            return localNewName;
+        }
+
+        /**
+         * Auto generated setter method
+         * @param param NewName
+         */
+        public void setNewName(java.lang.String param) {
+            localNewNameTracker = true;
+
+            this.localNewName = param;
+        }
+
+        public boolean isValueSpecified() {
+            return localValueTracker;
+        }
+
+        /**
+         * Auto generated getter method
+         * @return java.lang.String
+         */
+        public java.lang.String getValue() {
+            return localValue;
+        }
+
+        /**
+         * Auto generated setter method
+         * @param param Value
+         */
+        public void setValue(java.lang.String param) {
+            localValueTracker = true;
+
+            this.localValue = param;
+        }
+
+        /**
+         *
+         * @param parentQName
+         * @param factory
+         * @return org.apache.axiom.om.OMElement
+         */
+        public org.apache.axiom.om.OMElement getOMElement(
+            final javax.xml.namespace.QName parentQName,
+            final org.apache.axiom.om.OMFactory factory)
+            throws org.apache.axis2.databinding.ADBException {
+            org.apache.axiom.om.OMDataSource dataSource = new org.apache.axis2.databinding.ADBDataSource(this,
+                    MY_QNAME);
+
+            return factory.createOMElement(dataSource, MY_QNAME);
+        }
+
+        public void serialize(final javax.xml.namespace.QName parentQName,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException,
+                org.apache.axis2.databinding.ADBException {
+            serialize(parentQName, xmlWriter, false);
+        }
+
+        public void serialize(final javax.xml.namespace.QName parentQName,
+            javax.xml.stream.XMLStreamWriter xmlWriter, boolean serializeType)
+            throws javax.xml.stream.XMLStreamException,
+                org.apache.axis2.databinding.ADBException {
+            java.lang.String prefix = null;
+            java.lang.String namespace = null;
+
+            prefix = parentQName.getPrefix();
+            namespace = parentQName.getNamespaceURI();
+            writeStartElement(prefix, namespace, parentQName.getLocalPart(),
+                xmlWriter);
+
+            if (serializeType) {
+                java.lang.String namespacePrefix = registerPrefix(xmlWriter,
+                        "http://soap.service");
+
+                if ((namespacePrefix != null) &&
+                        (namespacePrefix.trim().length() > 0)) {
+                    writeAttribute("xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance", "type",
+                        namespacePrefix + ":editArticle", xmlWriter);
+                } else {
+                    writeAttribute("xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance", "type",
+                        "editArticle", xmlWriter);
+                }
+            }
+
+            if (localOldNameTracker) {
+                namespace = "http://soap.service";
+                writeStartElement(null, namespace, "oldName", xmlWriter);
+
+                if (localOldName == null) {
+                    // write the nil attribute
+                    writeAttribute("xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance", "nil",
+                        "1", xmlWriter);
+                } else {
+                    xmlWriter.writeCharacters(localOldName);
+                }
+
+                xmlWriter.writeEndElement();
+            }
+
+            if (localNewNameTracker) {
+                namespace = "http://soap.service";
+                writeStartElement(null, namespace, "newName", xmlWriter);
+
+                if (localNewName == null) {
+                    // write the nil attribute
+                    writeAttribute("xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance", "nil",
+                        "1", xmlWriter);
+                } else {
+                    xmlWriter.writeCharacters(localNewName);
+                }
+
+                xmlWriter.writeEndElement();
+            }
+
+            if (localValueTracker) {
+                namespace = "http://soap.service";
+                writeStartElement(null, namespace, "value", xmlWriter);
+
+                if (localValue == null) {
+                    // write the nil attribute
+                    writeAttribute("xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance", "nil",
+                        "1", xmlWriter);
+                } else {
+                    xmlWriter.writeCharacters(localValue);
+                }
+
+                xmlWriter.writeEndElement();
+            }
+
+            xmlWriter.writeEndElement();
+        }
+
+        private static java.lang.String generatePrefix(
+            java.lang.String namespace) {
+            if (namespace.equals("http://soap.service")) {
+                return "ns2";
+            }
+
+            return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+        }
+
+        /**
+         * Utility method to write an element start tag.
+         */
+        private void writeStartElement(java.lang.String prefix,
+            java.lang.String namespace, java.lang.String localPart,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+
+            if (writerPrefix != null) {
+                xmlWriter.writeStartElement(namespace, localPart);
+            } else {
+                if (namespace.length() == 0) {
+                    prefix = "";
+                } else if (prefix == null) {
+                    prefix = generatePrefix(namespace);
+                }
+
+                xmlWriter.writeStartElement(prefix, localPart, namespace);
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+        }
+
+        /**
+         * Util method to write an attribute with the ns prefix
+         */
+        private void writeAttribute(java.lang.String prefix,
+            java.lang.String namespace, java.lang.String attName,
+            java.lang.String attValue,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            if (xmlWriter.getPrefix(namespace) == null) {
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+
+            xmlWriter.writeAttribute(namespace, attName, attValue);
+        }
+
+        /**
+         * Util method to write an attribute without the ns prefix
+         */
+        private void writeAttribute(java.lang.String namespace,
+            java.lang.String attName, java.lang.String attValue,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            if (namespace.equals("")) {
+                xmlWriter.writeAttribute(attName, attValue);
+            } else {
+                registerPrefix(xmlWriter, namespace);
+                xmlWriter.writeAttribute(namespace, attName, attValue);
+            }
+        }
+
+        /**
+         * Util method to write an attribute without the ns prefix
+         */
+        private void writeQNameAttribute(java.lang.String namespace,
+            java.lang.String attName, javax.xml.namespace.QName qname,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            java.lang.String attributeNamespace = qname.getNamespaceURI();
+            java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+
+            if (attributePrefix == null) {
+                attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
+            }
+
+            java.lang.String attributeValue;
+
+            if (attributePrefix.trim().length() > 0) {
+                attributeValue = attributePrefix + ":" + qname.getLocalPart();
+            } else {
+                attributeValue = qname.getLocalPart();
+            }
+
+            if (namespace.equals("")) {
+                xmlWriter.writeAttribute(attName, attributeValue);
+            } else {
+                registerPrefix(xmlWriter, namespace);
+                xmlWriter.writeAttribute(namespace, attName, attributeValue);
+            }
+        }
+
+        /**
+         *  method to handle Qnames
+         */
+        private void writeQName(javax.xml.namespace.QName qname,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            java.lang.String namespaceURI = qname.getNamespaceURI();
+
+            if (namespaceURI != null) {
+                java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+
+                if (prefix == null) {
+                    prefix = generatePrefix(namespaceURI);
+                    xmlWriter.writeNamespace(prefix, namespaceURI);
+                    xmlWriter.setPrefix(prefix, namespaceURI);
+                }
+
+                if (prefix.trim().length() > 0) {
+                    xmlWriter.writeCharacters(prefix + ":" +
+                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                            qname));
+                } else {
+                    // i.e this is the default namespace
+                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                            qname));
+                }
+            } else {
+                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                        qname));
+            }
+        }
+
+        private void writeQNames(javax.xml.namespace.QName[] qnames,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            if (qnames != null) {
+                // we have to store this data until last moment since it is not possible to write any
+                // namespace data after writing the charactor data
+                java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
+                java.lang.String namespaceURI = null;
+                java.lang.String prefix = null;
+
+                for (int i = 0; i < qnames.length; i++) {
+                    if (i > 0) {
+                        stringToWrite.append(" ");
+                    }
+
+                    namespaceURI = qnames[i].getNamespaceURI();
+
+                    if (namespaceURI != null) {
+                        prefix = xmlWriter.getPrefix(namespaceURI);
+
+                        if ((prefix == null) || (prefix.length() == 0)) {
+                            prefix = generatePrefix(namespaceURI);
+                            xmlWriter.writeNamespace(prefix, namespaceURI);
+                            xmlWriter.setPrefix(prefix, namespaceURI);
+                        }
+
+                        if (prefix.trim().length() > 0) {
+                            stringToWrite.append(prefix).append(":")
+                                         .append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                                    qnames[i]));
+                        } else {
+                            stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                                    qnames[i]));
+                        }
+                    } else {
+                        stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                                qnames[i]));
+                    }
+                }
+
+                xmlWriter.writeCharacters(stringToWrite.toString());
+            }
+        }
+
+        /**
+         * Register a namespace prefix
+         */
+        private java.lang.String registerPrefix(
+            javax.xml.stream.XMLStreamWriter xmlWriter,
+            java.lang.String namespace)
+            throws javax.xml.stream.XMLStreamException {
+            java.lang.String prefix = xmlWriter.getPrefix(namespace);
+
+            if (prefix == null) {
+                prefix = generatePrefix(namespace);
+
+                javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+
+                while (true) {
+                    java.lang.String uri = nsContext.getNamespaceURI(prefix);
+
+                    if ((uri == null) || (uri.length() == 0)) {
+                        break;
+                    }
+
+                    prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+                }
+
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+
+            return prefix;
+        }
+
+        /**
+         * databinding method to get an XML representation of this object
+         *
+         */
+        public javax.xml.stream.XMLStreamReader getPullParser(
+            javax.xml.namespace.QName qName)
+            throws org.apache.axis2.databinding.ADBException {
+            java.util.ArrayList elementList = new java.util.ArrayList();
+            java.util.ArrayList attribList = new java.util.ArrayList();
+
+            if (localOldNameTracker) {
+                elementList.add(new javax.xml.namespace.QName(
+                        "http://soap.service", "oldName"));
+
+                elementList.add((localOldName == null) ? null
+                                                       : org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                        localOldName));
+            }
+
+            if (localNewNameTracker) {
+                elementList.add(new javax.xml.namespace.QName(
+                        "http://soap.service", "newName"));
+
+                elementList.add((localNewName == null) ? null
+                                                       : org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                        localNewName));
             }
 
             if (localValueTracker) {
@@ -3294,7 +4096,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
                     if (reader.isStartElement() &&
                             new javax.xml.namespace.QName(
-                                "http://soap.service", "name").equals(
+                                "http://soap.service", "oldName").equals(
                                 reader.getName())) {
                         nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
                                 "nil");
@@ -3303,7 +4105,33 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
                                 !"1".equals(nillableValue)) {
                             java.lang.String content = reader.getElementText();
 
-                            object.setName(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                            object.setOldName(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                                    content));
+                        } else {
+                            reader.getElementText(); // throw away text nodes if any.
+                        }
+
+                        reader.next();
+                    } // End of if for expected property start element
+
+                    else {
+                    }
+
+                    while (!reader.isStartElement() && !reader.isEndElement())
+                        reader.next();
+
+                    if (reader.isStartElement() &&
+                            new javax.xml.namespace.QName(
+                                "http://soap.service", "newName").equals(
+                                reader.getName())) {
+                        nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
+                                "nil");
+
+                        if (!"true".equals(nillableValue) &&
+                                !"1".equals(nillableValue)) {
+                            java.lang.String content = reader.getElementText();
+
+                            object.setNewName(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
                                     content));
                         } else {
                             reader.getElementText(); // throw away text nodes if any.
@@ -3360,7 +4188,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
     public static class CreateArticle implements org.apache.axis2.databinding.ADBBean {
         public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
-                "createArticle", "ns1");
+                "createArticle", "ns2");
 
         /**
          * field for Name
@@ -3517,7 +4345,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         private static java.lang.String generatePrefix(
             java.lang.String namespace) {
             if (namespace.equals("http://soap.service")) {
-                return "ns1";
+                return "ns2";
             }
 
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -3879,7 +4707,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
 
     public static class GetContent implements org.apache.axis2.databinding.ADBBean {
         public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
-                "getContent", "ns1");
+                "getContent", "ns2");
 
         /**
          * field for Name
@@ -3987,7 +4815,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         private static java.lang.String generatePrefix(
             java.lang.String namespace) {
             if (namespace.equals("http://soap.service")) {
-                return "ns1";
+                return "ns2";
             }
 
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
@@ -4312,9 +5140,363 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         } //end of factory class
     }
 
+    public static class ArticleNotFoundFault implements org.apache.axis2.databinding.ADBBean {
+        /* This type was generated from the piece of schema that had
+           name = ArticleNotFoundFault
+           Namespace URI = http://soap.service/xsd
+           Namespace Prefix = ns1
+         */
+
+        /**
+         *
+         * @param parentQName
+         * @param factory
+         * @return org.apache.axiom.om.OMElement
+         */
+        public org.apache.axiom.om.OMElement getOMElement(
+            final javax.xml.namespace.QName parentQName,
+            final org.apache.axiom.om.OMFactory factory)
+            throws org.apache.axis2.databinding.ADBException {
+            org.apache.axiom.om.OMDataSource dataSource = new org.apache.axis2.databinding.ADBDataSource(this,
+                    parentQName);
+
+            return factory.createOMElement(dataSource, parentQName);
+        }
+
+        public void serialize(final javax.xml.namespace.QName parentQName,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException,
+                org.apache.axis2.databinding.ADBException {
+            serialize(parentQName, xmlWriter, false);
+        }
+
+        public void serialize(final javax.xml.namespace.QName parentQName,
+            javax.xml.stream.XMLStreamWriter xmlWriter, boolean serializeType)
+            throws javax.xml.stream.XMLStreamException,
+                org.apache.axis2.databinding.ADBException {
+            java.lang.String prefix = null;
+            java.lang.String namespace = null;
+
+            prefix = parentQName.getPrefix();
+            namespace = parentQName.getNamespaceURI();
+            writeStartElement(prefix, namespace, parentQName.getLocalPart(),
+                xmlWriter);
+
+            if (serializeType) {
+                java.lang.String namespacePrefix = registerPrefix(xmlWriter,
+                        "http://soap.service/xsd");
+
+                if ((namespacePrefix != null) &&
+                        (namespacePrefix.trim().length() > 0)) {
+                    writeAttribute("xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance", "type",
+                        namespacePrefix + ":ArticleNotFoundFault", xmlWriter);
+                } else {
+                    writeAttribute("xsi",
+                        "http://www.w3.org/2001/XMLSchema-instance", "type",
+                        "ArticleNotFoundFault", xmlWriter);
+                }
+            }
+
+            xmlWriter.writeEndElement();
+        }
+
+        private static java.lang.String generatePrefix(
+            java.lang.String namespace) {
+            if (namespace.equals("http://soap.service/xsd")) {
+                return "ns1";
+            }
+
+            return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+        }
+
+        /**
+         * Utility method to write an element start tag.
+         */
+        private void writeStartElement(java.lang.String prefix,
+            java.lang.String namespace, java.lang.String localPart,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+
+            if (writerPrefix != null) {
+                xmlWriter.writeStartElement(namespace, localPart);
+            } else {
+                if (namespace.length() == 0) {
+                    prefix = "";
+                } else if (prefix == null) {
+                    prefix = generatePrefix(namespace);
+                }
+
+                xmlWriter.writeStartElement(prefix, localPart, namespace);
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+        }
+
+        /**
+         * Util method to write an attribute with the ns prefix
+         */
+        private void writeAttribute(java.lang.String prefix,
+            java.lang.String namespace, java.lang.String attName,
+            java.lang.String attValue,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            if (xmlWriter.getPrefix(namespace) == null) {
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+
+            xmlWriter.writeAttribute(namespace, attName, attValue);
+        }
+
+        /**
+         * Util method to write an attribute without the ns prefix
+         */
+        private void writeAttribute(java.lang.String namespace,
+            java.lang.String attName, java.lang.String attValue,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            if (namespace.equals("")) {
+                xmlWriter.writeAttribute(attName, attValue);
+            } else {
+                registerPrefix(xmlWriter, namespace);
+                xmlWriter.writeAttribute(namespace, attName, attValue);
+            }
+        }
+
+        /**
+         * Util method to write an attribute without the ns prefix
+         */
+        private void writeQNameAttribute(java.lang.String namespace,
+            java.lang.String attName, javax.xml.namespace.QName qname,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            java.lang.String attributeNamespace = qname.getNamespaceURI();
+            java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+
+            if (attributePrefix == null) {
+                attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
+            }
+
+            java.lang.String attributeValue;
+
+            if (attributePrefix.trim().length() > 0) {
+                attributeValue = attributePrefix + ":" + qname.getLocalPart();
+            } else {
+                attributeValue = qname.getLocalPart();
+            }
+
+            if (namespace.equals("")) {
+                xmlWriter.writeAttribute(attName, attributeValue);
+            } else {
+                registerPrefix(xmlWriter, namespace);
+                xmlWriter.writeAttribute(namespace, attName, attributeValue);
+            }
+        }
+
+        /**
+         *  method to handle Qnames
+         */
+        private void writeQName(javax.xml.namespace.QName qname,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            java.lang.String namespaceURI = qname.getNamespaceURI();
+
+            if (namespaceURI != null) {
+                java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+
+                if (prefix == null) {
+                    prefix = generatePrefix(namespaceURI);
+                    xmlWriter.writeNamespace(prefix, namespaceURI);
+                    xmlWriter.setPrefix(prefix, namespaceURI);
+                }
+
+                if (prefix.trim().length() > 0) {
+                    xmlWriter.writeCharacters(prefix + ":" +
+                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                            qname));
+                } else {
+                    // i.e this is the default namespace
+                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                            qname));
+                }
+            } else {
+                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                        qname));
+            }
+        }
+
+        private void writeQNames(javax.xml.namespace.QName[] qnames,
+            javax.xml.stream.XMLStreamWriter xmlWriter)
+            throws javax.xml.stream.XMLStreamException {
+            if (qnames != null) {
+                // we have to store this data until last moment since it is not possible to write any
+                // namespace data after writing the charactor data
+                java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
+                java.lang.String namespaceURI = null;
+                java.lang.String prefix = null;
+
+                for (int i = 0; i < qnames.length; i++) {
+                    if (i > 0) {
+                        stringToWrite.append(" ");
+                    }
+
+                    namespaceURI = qnames[i].getNamespaceURI();
+
+                    if (namespaceURI != null) {
+                        prefix = xmlWriter.getPrefix(namespaceURI);
+
+                        if ((prefix == null) || (prefix.length() == 0)) {
+                            prefix = generatePrefix(namespaceURI);
+                            xmlWriter.writeNamespace(prefix, namespaceURI);
+                            xmlWriter.setPrefix(prefix, namespaceURI);
+                        }
+
+                        if (prefix.trim().length() > 0) {
+                            stringToWrite.append(prefix).append(":")
+                                         .append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                                    qnames[i]));
+                        } else {
+                            stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                                    qnames[i]));
+                        }
+                    } else {
+                        stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                                qnames[i]));
+                    }
+                }
+
+                xmlWriter.writeCharacters(stringToWrite.toString());
+            }
+        }
+
+        /**
+         * Register a namespace prefix
+         */
+        private java.lang.String registerPrefix(
+            javax.xml.stream.XMLStreamWriter xmlWriter,
+            java.lang.String namespace)
+            throws javax.xml.stream.XMLStreamException {
+            java.lang.String prefix = xmlWriter.getPrefix(namespace);
+
+            if (prefix == null) {
+                prefix = generatePrefix(namespace);
+
+                javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+
+                while (true) {
+                    java.lang.String uri = nsContext.getNamespaceURI(prefix);
+
+                    if ((uri == null) || (uri.length() == 0)) {
+                        break;
+                    }
+
+                    prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+                }
+
+                xmlWriter.writeNamespace(prefix, namespace);
+                xmlWriter.setPrefix(prefix, namespace);
+            }
+
+            return prefix;
+        }
+
+        /**
+         * databinding method to get an XML representation of this object
+         *
+         */
+        public javax.xml.stream.XMLStreamReader getPullParser(
+            javax.xml.namespace.QName qName)
+            throws org.apache.axis2.databinding.ADBException {
+            java.util.ArrayList elementList = new java.util.ArrayList();
+            java.util.ArrayList attribList = new java.util.ArrayList();
+
+            return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName,
+                elementList.toArray(), attribList.toArray());
+        }
+
+        /**
+         *  Factory class that keeps the parse method
+         */
+        public static class Factory {
+            /**
+             * static method to create the object
+             * Precondition:  If this object is an element, the current or next start element starts this object and any intervening reader events are ignorable
+             *                If this object is not an element, it is a complex type and the reader is at the event just after the outer start element
+             * Postcondition: If this object is an element, the reader is positioned at its end element
+             *                If this object is a complex type, the reader is positioned at the end element of its outer element
+             */
+            public static ArticleNotFoundFault parse(
+                javax.xml.stream.XMLStreamReader reader)
+                throws java.lang.Exception {
+                ArticleNotFoundFault object = new ArticleNotFoundFault();
+
+                int event;
+                java.lang.String nillableValue = null;
+                java.lang.String prefix = "";
+                java.lang.String namespaceuri = "";
+
+                try {
+                    while (!reader.isStartElement() && !reader.isEndElement())
+                        reader.next();
+
+                    if (reader.getAttributeValue(
+                                "http://www.w3.org/2001/XMLSchema-instance",
+                                "type") != null) {
+                        java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
+                                "type");
+
+                        if (fullTypeName != null) {
+                            java.lang.String nsPrefix = null;
+
+                            if (fullTypeName.indexOf(":") > -1) {
+                                nsPrefix = fullTypeName.substring(0,
+                                        fullTypeName.indexOf(":"));
+                            }
+
+                            nsPrefix = (nsPrefix == null) ? "" : nsPrefix;
+
+                            java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(
+                                        ":") + 1);
+
+                            if (!"ArticleNotFoundFault".equals(type)) {
+                                //find namespace for the prefix
+                                java.lang.String nsUri = reader.getNamespaceContext()
+                                                               .getNamespaceURI(nsPrefix);
+
+                                return (ArticleNotFoundFault) ExtensionMapper.getTypeObject(nsUri,
+                                    type, reader);
+                            }
+                        }
+                    }
+
+                    // Note all attributes that were handled. Used to differ normal attributes
+                    // from anyAttributes.
+                    java.util.Vector handledAttributes = new java.util.Vector();
+
+                    reader.next();
+
+                    while (!reader.isStartElement() && !reader.isEndElement())
+                        reader.next();
+
+                    if (reader.isStartElement()) {
+                        // A start element we are not expecting indicates a trailing invalid property
+                        throw new org.apache.axis2.databinding.ADBException(
+                            "Unexpected subelement " + reader.getName());
+                    }
+                } catch (javax.xml.stream.XMLStreamException e) {
+                    throw new java.lang.Exception(e);
+                }
+
+                return object;
+            }
+        } //end of factory class
+    }
+
     public static class GetContentResponse implements org.apache.axis2.databinding.ADBBean {
         public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("http://soap.service",
-                "getContentResponse", "ns1");
+                "getContentResponse", "ns2");
 
         /**
          * field for _return
@@ -4422,7 +5604,7 @@ public class AxisDirectoryStub extends org.apache.axis2.client.Stub {
         private static java.lang.String generatePrefix(
             java.lang.String namespace) {
             if (namespace.equals("http://soap.service")) {
-                return "ns1";
+                return "ns2";
             }
 
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();

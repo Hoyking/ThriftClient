@@ -38,11 +38,35 @@ public abstract class AxisDirectoryCallbackHandler {
         return clientData;
     }
 
-    // No methods generated for meps other than in-out
+    /**
+     * auto generated Axis2 call back method for editArticle method
+     * override this method for handling normal response from editArticle operation
+     */
+    public void receiveResulteditArticle() {
+    }
+
+    /**
+     * auto generated Axis2 Error handler
+     * override this method for handling error response from editArticle operation
+     */
+    public void receiveErroreditArticle(java.lang.Exception e) {
+    }
 
     // No methods generated for meps other than in-out
 
-    // No methods generated for meps other than in-out
+    /**
+     * auto generated Axis2 call back method for deleteArticle method
+     * override this method for handling normal response from deleteArticle operation
+     */
+    public void receiveResultdeleteArticle() {
+    }
+
+    /**
+     * auto generated Axis2 Error handler
+     * override this method for handling error response from deleteArticle operation
+     */
+    public void receiveErrordeleteArticle(java.lang.Exception e) {
+    }
 
     // No methods generated for meps other than in-out
 

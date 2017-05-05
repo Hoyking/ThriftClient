@@ -1,0 +1,7 @@
+component
+controller
+listener
+service
+service.rpc
+service.soap
+view

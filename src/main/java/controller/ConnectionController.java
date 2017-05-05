@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.ConnectException;
 import java.rmi.RemoteException;
 
 import javax.swing.BorderFactory;
@@ -13,49 +12,45 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import org.apache.axis2.AxisFault;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
 
 import service.ClientStub;
-import service.rpc.ArticleNotFoundException;
 import service.rpc.ArticleService;
 import service.rpc.ClientRPCStub;
 import service.soap.AxisDirectoryStub;
 import service.soap.ClientSoapStub;
 
+/** Класс служит для создания соединения с сервером
+ * 
+ * @author Parfenenko Artem
+ * @version 1.0
+ *
+ */
 public class ConnectionController {
 
 	private static TTransport transport;
+	/** Ссылка на класс-стаб для взаимодействия с web-сервисом */
 	private static ClientStub clientStub;
+	/** Поле для ввода ip-адреса сервера */
 	private JTextField ipField;
+	/** Поле для ввода порта сервера */
 	private JTextField portField;
+	private JFrame frame;
 	
+	/** Конструктор */
 	public ConnectionController() {
 		introView();
-		/*try {
-			rpcConnection("127.0.0.1", 9090);
-			new ViewController();
-		} catch (TException e1) {
-			JOptionPane.showMessageDialog(new JFrame(), "Failed to connect to the server", "Error", JOptionPane.ERROR_MESSAGE);
-		}*/
-		/*try {
-			soapConnection("100.95.255.221", "8080");
-			new ViewController();
-		} catch (RemoteException e) {
-			JOptionPane.showMessageDialog(new JFrame(), "Failed to connect to the server", "Error", JOptionPane.ERROR_MESSAGE);
-		}*/
 	}
 	
+	/** Метод создает стартовое окно для ввода адреса сервера */
 	private void introView() {
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		frame.setSize(300, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
@@ -67,10 +62,10 @@ public class ConnectionController {
 		titlePanel.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.GRAY));
 		titlePanel.setBounds(0, 0, 300, 40);
 		
-		JLabel title = new JLabel("Enter server IP");
+		JLabel title = new JLabel("Enter server adress");
 		Font font = new Font("Arial", Font.BOLD, 13);
 		title.setFont(font);
-		title.setBounds(100, 10, 150, 20);
+		title.setBounds(85, 10, 150, 20);
 		titlePanel.add(title);
 		
 		JPanel optionPanel = new JPanel();
@@ -106,6 +101,12 @@ public class ConnectionController {
 		frame.setVisible(true);
 	}
 	
+	/** Метод для соединения с rpc web-сервисом
+	 * 
+	 * @param ip ip-адрес сервера
+	 * @param port порт сервера
+	 * @throws TException исключение в случае ошибки соединения с сервером
+	 */
 	private void rpcConnection(String ip, int port) throws TException {
 		transport = new TSocket(ip, port);
 		transport.open();
@@ -117,6 +118,12 @@ public class ConnectionController {
 		setClientStub(clientStub);
 	}
 	
+	/** Метод для соединения с документно-ориентированным web-сервисом
+	 * 
+	 * @param ip ip-адрес 
+	 * @param port порт сервера
+	 * @throws RemoteException исключение в случае ошибки соединения с сервером
+	 */
 	private void soapConnection(String ip, String port) throws RemoteException {
 		ClientStub clientStub = new ClientSoapStub(
 			new AxisDirectoryStub("http://" + ip + ":" + port + "/WebServiceProject/services/AxisDirectory"));
@@ -131,6 +138,7 @@ public class ConnectionController {
 		return clientStub;
 	}
 	
+	/** Метод для закрытия соединения с сервером */
 	public static void closeConnection() {
 		transport.close();
 	}
@@ -143,19 +151,25 @@ public class ConnectionController {
 		return portField.getText();
 	}
 	
+	/** Слушатель кнопки установления соединения с сервером */
 	private class ButtonListener implements ActionListener {
 		
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			try {
+				if(Integer.parseInt(getPort()) != 9090) {
+					throw new TException();
+				}
 				rpcConnection(getIP(), Integer.parseInt(getPort()));
 				new ViewController();
-				System.out.println("RPC");
+				frame.setVisible(false);
 			} catch(TException tException) {
 				try {
+					if(!getPort().equals("8080")) {
+						throw new RemoteException();
+					}
 					soapConnection(getIP(), getPort());
 					new ViewController();
-					System.out.println("SOAP");
+					frame.setVisible(false);
 				} catch(RemoteException rException) {
 					JOptionPane.showMessageDialog(new JFrame(), "Failed to connect to the server", "Error", JOptionPane.ERROR_MESSAGE);
 				}
@@ -166,6 +180,7 @@ public class ConnectionController {
 		
 	}
 	
+	/** Метод main */
 	public static void main(String[] args) {
 		new ConnectionController();
 	}

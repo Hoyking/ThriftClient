@@ -11,10 +11,6 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,33 +24,58 @@ import listener.DeleteArticleListener;
 import listener.EditArticleListener;
 import listener.SearchArticlesListener;
 import service.rpc.ArticleNotFoundException;
+import service.soap.AxisDirectoryArticleNotFoundFaultException;
 
+/** Класс-представление для обзора статей
+ * 
+ * @author Parfenenko Artem
+ * @version 1.0
+ *
+ */
 public class GeneralView extends AbstractClientView{
 	
+	/** Список всех статей */
 	private List <ArticleLink> articles;
+	/** Список статей для удаления */
 	private List <ArticleLink> unnecArticles;
+	/** Выбранная статья */
 	private ArticleLink selectedArticle;
+	/** Текстовая область с содержимым выбранной статьи */
 	private JTextArea textArea;
+	/** Текстовое поле для ввода названия статьи в режиме поиска */
 	private JTextField searchField;
+	/** Панель со списком всех статей */
 	private JPanel textPane;
-	private JLabel label;
-	private JMenuBar menuBar;
+	/** Текстовое поле с названием выбранной статьи */
+	private JTextField textField;
 	private JPanel delButtonPanel;
 	private JPanel editButtonPanel;
+	/** Константа определяет белый цвет */
 	private static final Color WHITE = Color.WHITE;
+	/** Константа определяет серый цвет */
 	private static final Color GRAY = new Color(245, 245, 245);
 	
+	/** Конструктор класса инициализирует списки статей */
 	public GeneralView() {
 		unnecArticles = new ArrayList <ArticleLink> ();
 		articles = new ArrayList <ArticleLink> ();
 		decorateView();
 	}
 	
+	/** Метод для формирования представления */
 	@Override
 	protected final void decorateView() {
 		Font font = new Font("Arial", 1, 16);
-		label = new JLabel();
-		label.setFont(font);
+		textField = new JTextField();
+		textField.setColumns(textField.getText().length());
+		textField.setBackground(GRAY);
+		textField.setEditable(false);
+		textField.setFont(font);
+		
+		JScrollPane textFieldPane = new JScrollPane(textField);
+	    textFieldPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    textFieldPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+	    textFieldPane.setPreferredSize(new Dimension(590, 40));
 		
 		textArea = new JTextArea();
 		textArea.setBackground(GRAY);
@@ -85,14 +106,6 @@ public class GeneralView extends AbstractClientView{
 		searchField = new JTextField(18);
 		searchField.addKeyListener(new SearchArticlesListener(this));
 		searchField.setVisible(false);
-		
-		menuBar = new JMenuBar();
-		JMenu menu = new JMenu("      Edit      ");
-		JMenuItem search = new JMenuItem("Search");
-		JMenuItem delete = new JMenuItem("Delete");
-		menu.add(search);
-		menu.add(delete);
-		menuBar.add(menu);
 	    
 	    JScrollPane areaPane = new JScrollPane(textArea);
 	    areaPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -122,7 +135,7 @@ public class GeneralView extends AbstractClientView{
 	    
 	    JPanel upPanel = new JPanel();
 	    upPanel.setLayout(new BorderLayout());
-	    upPanel.add(label, BorderLayout.WEST);
+	    upPanel.add(textFieldPane, BorderLayout.WEST);
 	    upPanel.add(searchField, BorderLayout.EAST);
 	    
 	    panel.add(upPanel, BorderLayout.NORTH);
@@ -131,6 +144,7 @@ public class GeneralView extends AbstractClientView{
 	    textArea.setFont(font);
 	}
 	
+	/** Метод переключает представления в режим удаления статей */
 	public void deleteModOn() {
 		for(ArticleLink article: articles) {
 			article.setMod(true);
@@ -138,6 +152,7 @@ public class GeneralView extends AbstractClientView{
 		}
 	}
 	
+	/** Метод отключает режим удаления статей */
 	public void deleteModOff() {
 		unnecArticles.clear();
 		for(ArticleLink article: articles) {
@@ -146,87 +161,133 @@ public class GeneralView extends AbstractClientView{
 		}
 	}
 	
+	/** Метод переключает представления в режим поиска статей */
 	public void searchModOn() {
 		searchField.setVisible(true);
+		textField.setColumns(42);
 		panel.getParent().repaint();
 	}
 	
+	/** Метод отключает режим поиска статей */
 	public void searchModOff() {
 		for(ArticleLink  articleLink: articles) {
 			articleLink.getComponent().setVisible(true);
 		}
 		searchField.setVisible(false);
+		textField.setColumns(57);
 		panel.getParent().repaint();
 	}
 	
+	/** Метод переключает представления в режим редактирования статьи */
 	public void editModOn() {
 		if(selectedArticle == null) {
 			JOptionPane.showMessageDialog(new JFrame(), "Please select article", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		
 		textArea.setEditable(true);
+		textField.setEditable(true);
+		
 		textArea.setBackground(WHITE);
+		textField.setBackground(WHITE);
 		editButtonPanel.setVisible(true);
 	}
 	
+	/** Метод выполняет редактирования статьи */
 	public void completeEditing () {
 		try {
-			ConnectionController.getClientStub().editArticle(selectedArticle.getName(), textArea.getText());
-		} catch (ArticleNotFoundException e) {
-			e.printStackTrace();
+			String newName = textField.getText();
+			ConnectionController.getClientStub().editArticle(selectedArticle.getName(), newName, textArea.getText());
+			selectedArticle.setName(newName);
+			repaint();
+		} catch (ArticleNotFoundException | AxisDirectoryArticleNotFoundFaultException e) {
+			JOptionPane.showMessageDialog(new JFrame(), 
+					"Seems like someone changes information. You should refresh directory", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
+	/** Метод отключает режим редактирования статьи */
 	public void editModOff() {
 		textArea.setEditable(false);
 		textArea.setBackground(GRAY);
+		textField.setEditable(false);
+		textField.setBackground(GRAY);
 		editButtonPanel.setVisible(false);
 	}
 	
+	/** Метод отрисовывает на представлении ссылку на статью
+	 * 
+	 * @param articleLink объект типа ArticleLink
+	 * @see component.ArticleLink
+	 */
 	public void paintArticle(ArticleLink articleLink) {
 		textPane.add(articleLink.getComponent());
 	}
 	
+	/** Метод загружает статью
+	 * 
+	 * @param name имя загружаемой статьи
+	 * @param value содержимое загружаемой статьи
+	 */
 	public void loadArticle(String name, String value) {
 		textArea.setText(value);
-		label.setText(name);
+		textField.setText(name);
+		textField.setColumns(name.length());
 	}
 	
+	/** Метод загружает список заголовков статей
+	 *  
+	 * @param titles список заголовков статей
+	 */
 	public void loadTitles(List<String> titles) {
 		articles.clear();
 		for(String title: titles) {
 			loadTitle(title);
 		}
-		repaint();
+		reloadArticles();
 	}
 	
+	/** Метод загружает заголовок статьи
+	 * 
+	 * @param title заголовок статьи
+	 */
 	public void loadTitle(String title) {
 		articles.add(new ArticleLink(title, this));
 	}
 	
+	/** Метод изымает статью из списка
+	 * 
+	 * @param title название статьи
+	 */
 	public void removeTitle(String title) {
 		for(ArticleLink articleLink: articles) {
 			if(articleLink.getName().equals(title)) {
 				articles.remove(articleLink);
-				repaint();
+				reloadArticles();
 				return;
 			}
 		}
 	}
 	
+	/** Метод удаляет выбранные статьи */
 	public void deleteArticles() {
 		for(ArticleLink article: unnecArticles) {
 			articles.remove(article);
 			try {
 				ConnectionController.getClientStub().deleteArticle(article.getName());
-			} catch (ArticleNotFoundException e) {
-				e.printStackTrace();
+			} catch (ArticleNotFoundException e1) {
+				JOptionPane.showMessageDialog(new JFrame(), 
+						"Seems like someone changes information. You should refresh directory", "Error", JOptionPane.ERROR_MESSAGE);
+			} catch (AxisDirectoryArticleNotFoundFaultException e2) {
+				JOptionPane.showMessageDialog(new JFrame(), 
+						"Seems like someone changes information. You should refresh directory", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		unnecArticles.clear();
-		repaint();
+		reloadArticles();
 	}
 	
+	/** Метод выполняет поиск и последующее оторажение найденных статей */
 	public void searchArticles() {
 		String str = searchField.getText();
 		if(str.length() == 0) {
@@ -244,19 +305,32 @@ public class GeneralView extends AbstractClientView{
 		panel.getParent().repaint();
 	}
 	
+	/** Метод добавляет статью к списку удаляемых
+	 * 
+	 * @param articleLink статья для удаления
+	 */
 	public void addArticleToBeDel(ArticleLink articleLink) {
 		unnecArticles.add(articleLink);
 	}
 	
+	/** Метод изымает статью из списка удаляемых
+	 * 
+	 * @param articleLink сохраняемая статья
+	 */
 	public void safeArticle(ArticleLink articleLink) {
 		unnecArticles.remove(articleLink);
 	}
 	
+	/** Метод для указания выбранной статьи
+	 * 
+	 * @param articleLink выбранная статья
+	 */
 	public void setSelectedArticle(ArticleLink articleLink) {
 		selectedArticle = articleLink;
 	}
 	
-	public void repaint() {
+	/** Метод перезагружает список статей на представлении */
+	public void reloadArticles() {
 		textPane.removeAll();
 		for(ArticleLink article: articles) {
 			paintArticle(article);
@@ -265,9 +339,15 @@ public class GeneralView extends AbstractClientView{
 		panel.repaint();
 	}
 	
+	/** Метод для перерисовывания представления */
+	public void repaint() {
+		panel.getParent().repaint();
+	}
+	
+	/** Метод для очистки полей с именем и содержимым статьи */
 	public void clear() {
 		textArea.setText("");
-		label.setText(" ");
+		textField.setText(" ");
 		selectedArticle = null;
 	}
 }
