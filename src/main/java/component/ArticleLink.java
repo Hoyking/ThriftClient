@@ -20,38 +20,38 @@ import service.rpc.ArticleNotFoundException;
 import service.soap.AxisDirectoryArticleNotFoundFaultException;
 import view.GeneralView;
 
-/** Класс предоставляет методы для инициализации и использования компонента-ссылки на статью
- * 
- * @author Parfenenko Artem
- * @version 1.0
- *
- */
+/** РљР»Р°СЃСЃ РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РјРµС‚РѕРґС‹ РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё Рё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РєРѕРјРїРѕРЅРµРЅС‚Р°-СЃСЃС‹Р»РєРё РЅР° СЃС‚Р°С‚СЊСЋ
+* 
+* @author Parfenenko Artem
+* @version 1.0
+*
+*/
 public class ArticleLink {
-
-	/** Ссылка на объект GeneralView
-	 * @see view.GeneralView
-	 */
+	
+	/** РЎСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ GeneralView
+	* @see view.GeneralView
+	*/
 	private GeneralView view;
-	/** Ссылка на текстовое поле с названием статьи */
+	/** РЎСЃС‹Р»РєР° РЅР° С‚РµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ СЃ РЅР°Р·РІР°РЅРёРµРј СЃС‚Р°С‚СЊРё */
 	private JTextPane textPane;
-	/** Название статьи */
+	/** РќР°Р·РІР°РЅРёРµ СЃС‚Р°С‚СЊРё */
 	private String name;
-	/** Check box удаления / неудаления статьи */
+	/** Check box СѓРґР°Р»РµРЅРёСЏ / РЅРµСѓРґР°Р»РµРЅРёСЏ СЃС‚Р°С‚СЊРё */
 	private JCheckBox delBox;
-	/** Текущий цвет выделения компонента */
+	/** РўРµРєСѓС‰РёР№ С†РІРµС‚ РІС‹РґРµР»РµРЅРёСЏ РєРѕРјРїРѕРЅРµРЅС‚Р° */
 	private Color color;
-	/** Контейнер, содержащий все составляющие компонента */
+	/** РљРѕРЅС‚РµР№РЅРµСЂ, СЃРѕРґРµСЂР¶Р°С‰РёР№ РІСЃРµ СЃРѕСЃС‚Р°РІР»СЏСЋС‰РёРµ РєРѕРјРїРѕРЅРµРЅС‚Р° */
 	private Container c;
-	/** Константа определяет цвет выделенного компонента (темно-серый) */
+	/** РљРѕРЅСЃС‚Р°РЅС‚Р° РѕРїСЂРµРґРµР»СЏРµС‚ С†РІРµС‚ РІС‹РґРµР»РµРЅРЅРѕРіРѕ РєРѕРјРїРѕРЅРµРЅС‚Р° (С‚РµРјРЅРѕ-СЃРµСЂС‹Р№) */
 	private static final Color SELECTED = new Color(225, 225, 225);
-	/** Константа определяет цвет невыделенного компонента (светло-серый) */
+	/** РљРѕРЅСЃС‚Р°РЅС‚Р° РѕРїСЂРµРґРµР»СЏРµС‚ С†РІРµС‚ РЅРµРІС‹РґРµР»РµРЅРЅРѕРіРѕ РєРѕРјРїРѕРЅРµРЅС‚Р° (СЃРІРµС‚Р»Рѕ-СЃРµСЂС‹Р№) */
 	private static final Color UNSELECTED = new Color(245, 245, 245);
 	
-	/** Конструтор с параметрами
-	 * 
-	 * @param name имя статьи
-	 * @param view ссылка на объект GeneralView
-	 */
+	/** РљРѕРЅСЃС‚СЂСѓС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
+	* 
+	* @param name РёРјСЏ СЃС‚Р°С‚СЊРё
+	* @param view СЃСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ GeneralView
+	*/
 	public ArticleLink(String name, GeneralView view) {
 		this.view = view;
 		textPane = new JTextPane();
@@ -63,7 +63,7 @@ public class ArticleLink {
 		buildComponent();
 	}
 	
-	/** Метод формирует готовый компонент */
+	/** РњРµС‚РѕРґ С„РѕСЂРјРёСЂСѓРµС‚ РіРѕС‚РѕРІС‹Р№ РєРѕРјРїРѕРЅРµРЅС‚ */
 	private void buildComponent() {
 		c.setLayout(new BoxLayout(c, BoxLayout.LINE_AXIS));
 		
@@ -72,15 +72,15 @@ public class ArticleLink {
 		delBox.setVisible(false);
 		
 		textPane.setContentType("text/html");
-	    textPane.setText("<a href>" + visibleName(name) + "</a>");
-	    textPane.setMaximumSize(new Dimension(5000, 21));
-	    textPane.setBackground(color);
-	    
-	    c.add(delBox);
-	    c.add(textPane);
-	    
-	    addListener(new HyperlinkListener() {
-			
+		textPane.setText("<a href>" + visibleName(name) + "</a>");
+		textPane.setMaximumSize(new Dimension(5000, 21));
+		textPane.setBackground(color);
+		
+		c.add(delBox);
+		c.add(textPane);
+		
+		addListener(new HyperlinkListener() {
+		
 			public void hyperlinkUpdate(HyperlinkEvent e) {
 				if(e.getInputEvent().getModifiers() != InputEvent.BUTTON1_MASK) {
 					return;
@@ -91,22 +91,22 @@ public class ArticleLink {
 					view.loadArticle(name, value);
 					view.setSelectedArticle(getInstance());
 				} catch (ArticleNotFoundException e1) {
-					JOptionPane.showMessageDialog(new JFrame(), 
-							"Seems like someone changes information. You should refresh directory", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(new JFrame(), 
+						"Seems like someone changes information. You should refresh directory", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (AxisDirectoryArticleNotFoundFaultException e2) {
 					JOptionPane.showMessageDialog(new JFrame(), 
-							"Seems like someone changes information. You should refresh directory", "Error", JOptionPane.ERROR_MESSAGE);
+					"Seems like someone changes information. You should refresh directory", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			
+		
 		});
 	}
 	
-	/** Метод обрезает строку, если оно превышает 500 символов
-	 * 
-	 * @param name строка для обрезания
-	 * @return обрезанная строка
-	 */
+	/** РњРµС‚РѕРґ РѕР±СЂРµР·Р°РµС‚ СЃС‚СЂРѕРєСѓ, РµСЃР»Рё РѕРЅРѕ РїСЂРµРІС‹С€Р°РµС‚ 500 СЃРёРјРІРѕР»РѕРІ
+	* 
+	* @param name СЃС‚СЂРѕРєР° РґР»СЏ РѕР±СЂРµР·Р°РЅРёСЏ
+	* @return РѕР±СЂРµР·Р°РЅРЅР°СЏ СЃС‚СЂРѕРєР°
+	*/
 	private String visibleName(String name) {
 		if(name.length() > 500) {
 			return new String(name.substring(0, 500) + "...");
@@ -114,10 +114,10 @@ public class ArticleLink {
 		return name;
 	}
 	
-	/** Метод устанавливает показатель, показывающий то выделен компонент или нет
-	 * 
-	 * @param mod значение устанавливаемого показателя
-	 */
+	/** РњРµС‚РѕРґ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РїРѕРєР°Р·Р°С‚РµР»СЊ, РїРѕРєР°Р·С‹РІР°СЋС‰РёР№ С‚Рѕ РІС‹РґРµР»РµРЅ РєРѕРјРїРѕРЅРµРЅС‚ РёР»Рё РЅРµС‚
+	* 
+	* @param mod Р·РЅР°С‡РµРЅРёРµ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРјРѕРіРѕ РїРѕРєР°Р·Р°С‚РµР»СЏ
+	*/
 	public void setMod(boolean mod) {
 		delBox.setVisible(mod);
 		delBox.setSelected(false);
@@ -126,18 +126,18 @@ public class ArticleLink {
 		}
 	}
 	
-	/** Метод возвращает показатель 
-	 * 
-	 * @return показатель
-	 */
+	/** РњРµС‚РѕРґ РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕРєР°Р·Р°С‚РµР»СЊ 
+	* 
+	* @return РїРѕРєР°Р·Р°С‚РµР»СЊ
+	*/
 	public boolean getMod() {
 		return delBox.isVisible();
 	}
 	
-	/** Метод добавляет слушатель компонента
-	 * 
-	 * @param listener устанавливаемый слушатель компонента
-	 */
+	/** РњРµС‚РѕРґ РґРѕР±Р°РІР»СЏРµС‚ СЃР»СѓС€Р°С‚РµР»СЊ РєРѕРјРїРѕРЅРµРЅС‚Р°
+	* 
+	* @param listener СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРјС‹Р№ СЃР»СѓС€Р°С‚РµР»СЊ РєРѕРјРїРѕРЅРµРЅС‚Р°
+	*/
 	public void addListener(HyperlinkListener listener) {
 		textPane.addHyperlinkListener(listener);
 	}
@@ -154,28 +154,28 @@ public class ArticleLink {
 		textPane.setText("<a href>" + visibleName(name) + "</a>");
 	}
 	
-	/** Приватный метод возвращает объект класса
-	 * 
-	 * @return объект класса
-	 */
+	/** РџСЂРёРІР°С‚РЅС‹Р№ РјРµС‚РѕРґ РІРѕР·РІСЂР°С‰Р°РµС‚ РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР°
+	* 
+	* @return РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР°
+	*/
 	private ArticleLink getInstance() {
 		return this;
 	}
 	
-	/** Класс служит для создания экземпляра слушателя check box
-	 * 
-	 * @author Parfenenko Artem
-	 * @version 1.0
-	 *
-	 */
+	/** РљР»Р°СЃСЃ СЃР»СѓР¶РёС‚ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌРєР·РµРјРїР»СЏСЂР° СЃР»СѓС€Р°С‚РµР»СЏ check box
+	* 
+	* @author Parfenenko Artem
+	* @version 1.0
+	*
+	*/
 	private class BoxListener implements ActionListener {
 		
-		/** Метод выполняется при взаимодействии с check box */
+		/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РїСЂРё РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРё СЃ check box */
 		public void actionPerformed(ActionEvent e) {
 			trigger();
 		}
 		
-		/** Метод выполняет действия при активации / дезактивации check box */
+		/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё Р°РєС‚РёРІР°С†РёРё / РґРµР·Р°РєС‚РёРІР°С†РёРё check box */
 		private void trigger() {
 			if(color == UNSELECTED) {
 				color = SELECTED;

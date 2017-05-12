@@ -10,7 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-/** Класс-представление для создания статьи 
+/** РљР»Р°СЃСЃ-РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚Р°С‚СЊРё 
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -18,16 +18,16 @@ import javax.swing.ScrollPaneConstants;
  */
 public class CreateView extends AbstractClientView {
 	
-	/** Кнопка для подтверждения создания статьи */
+	/** РљРЅРѕРїРєР° РґР»СЏ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚Р°С‚СЊРё */
 	private JButton button;
-	/** Текстовое поле для ввода названия статьи */
+	/** РўРµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° РЅР°Р·РІР°РЅРёСЏ СЃС‚Р°С‚СЊРё */
 	private JTextField field;
-	/** Текстовая область для ввода содержимого статьи */
+	/** РўРµРєСЃС‚РѕРІР°СЏ РѕР±Р»Р°СЃС‚СЊ РґР»СЏ РІРІРѕРґР° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ СЃС‚Р°С‚СЊРё */
 	private JTextArea area;
 	private JLabel fieldLabel;
 	private JLabel areaLabel;
 	
-	/** Конструктор класса для инициализации переменных */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РїРµСЂРµРјРµРЅРЅС‹С… */
 	public CreateView() {
 		field = new JTextField();
 		button = new JButton("Confirm");
@@ -48,7 +48,7 @@ public class CreateView extends AbstractClientView {
 		return area;
 	}
 	
-	/** Метод для формирования представления */
+	/** РњРµС‚РѕРґ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ */
 	@Override
 	public void decorateView() {
 		panel.setLayout(null);

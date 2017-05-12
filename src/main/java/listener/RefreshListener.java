@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import controller.ConnectionController;
 import view.GeneralView;
 
-/** Класс служит для реализации слушателя кнопки обновления информации 
+/** РљР»Р°СЃСЃ СЃР»СѓР¶РёС‚ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё СЃР»СѓС€Р°С‚РµР»СЏ РєРЅРѕРїРєРё РѕР±РЅРѕРІР»РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё 
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -14,17 +14,17 @@ import view.GeneralView;
  */
 public class RefreshListener implements ActionListener{
 
-	/** Ссылка на объект класса GeneralView
+	/** РЎСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° GeneralView
 	 * @see view.GeneralView
 	 */
 	private GeneralView view;
 	
-	/** Конструктор класса инициализирует поле */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РїРѕР»Рµ */
 	public RefreshListener(GeneralView view) {
 		this.view = view;
 	}
 	
-	/** Метод выполняет действия при нажатии на кнопку обновления информации */
+	/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРЅРѕРїРєСѓ РѕР±РЅРѕРІР»РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		view.loadTitles(ConnectionController.getClientStub().getTitles());

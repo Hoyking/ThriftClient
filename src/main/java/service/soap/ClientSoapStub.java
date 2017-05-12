@@ -6,7 +6,7 @@ import java.util.List;
 
 import service.ClientStub;
 
-/** Класс-стаб для реализации интерфеса взаимодействия с документно-ориентированным web-сервисом
+/** РљР»Р°СЃСЃ-СЃС‚Р°Р± РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё РёРЅС‚РµСЂС„РµСЃР° РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ СЃ РґРѕРєСѓРјРµРЅС‚РЅРѕ-РѕСЂРёРµРЅС‚РёСЂРѕРІР°РЅРЅС‹Рј web-СЃРµСЂРІРёСЃРѕРј
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -16,22 +16,22 @@ public class ClientSoapStub implements ClientStub {
 	
 	private AxisDirectoryStub stub;
 	
-	/** Конструктор класса */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° */
 	public ClientSoapStub(AxisDirectoryStub stub) throws RemoteException {
 		this.stub = stub;
 		checkConnection();
 	}
 	
-	/** Метод для проверки соединения с сервером */
+	/** РњРµС‚РѕРґ РґР»СЏ РїСЂРѕРІРµСЂРєРё СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ СЃРµСЂРІРµСЂРѕРј */
 	private void checkConnection() throws RemoteException {
 		AxisDirectoryStub.GetTitles method = new AxisDirectoryStub.GetTitles();
 		AxisDirectoryStub.GetTitlesResponse methodResponse = stub.getTitles(method);
 		Arrays.asList(methodResponse.get_return());
 	}
 	
-	/** Метод для получения полного списка заголовков статей
+	/** РњРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РїРѕР»РЅРѕРіРѕ СЃРїРёСЃРєР° Р·Р°РіРѕР»РѕРІРєРѕРІ СЃС‚Р°С‚РµР№
 	 * 
-	 * @return полный список заголовков статей
+	 * @return РїРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє Р·Р°РіРѕР»РѕРІРєРѕРІ СЃС‚Р°С‚РµР№
 	 */
 	public List<String> getTitles() {
 		try {
@@ -44,11 +44,11 @@ public class ClientSoapStub implements ClientStub {
 		}
 	}
 	
-	/** Метод для получения содержимого статьи
+	/** РњРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ СЃС‚Р°С‚СЊРё
 	 * 
-	 * @param name имя искомой статьи
-	 * @return содержимое искомой статьи
-	 * @throws AxisDirectoryArticleNotFoundFaultException исключение, вызываемое в случае попытки допуститься к несуществующей статье
+	 * @param name РёРјСЏ РёСЃРєРѕРјРѕР№ СЃС‚Р°С‚СЊРё
+	 * @return СЃРѕРґРµСЂР¶РёРјРѕРµ РёСЃРєРѕРјРѕР№ СЃС‚Р°С‚СЊРё
+	 * @throws AxisDirectoryArticleNotFoundFaultException РёСЃРєР»СЋС‡РµРЅРёРµ, РІС‹Р·С‹РІР°РµРјРѕРµ РІ СЃР»СѓС‡Р°Рµ РїРѕРїС‹С‚РєРё РґРѕРїСѓСЃС‚РёС‚СЊСЃСЏ Рє РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ СЃС‚Р°С‚СЊРµ
 	 */
 	public String getContent(String name) throws AxisDirectoryArticleNotFoundFaultException {
 		try {
@@ -62,12 +62,12 @@ public class ClientSoapStub implements ClientStub {
 		}
 	}
 
-	/** Метод для редактирования статьи
+	/** РњРµС‚РѕРґ РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃС‚Р°С‚СЊРё
      * 
-     * @param oldName текущее имя редактируемой статьи
-     * @param newName новое имя редактируемой статьи
-     * @param value новое содержимое редактируемой
-     * @throws AxisDirectoryArticleNotFoundFaultException исключение, вызываемое в случае попытки допуститься к несуществующей статье
+     * @param oldName С‚РµРєСѓС‰РµРµ РёРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµРјРѕР№ СЃС‚Р°С‚СЊРё
+     * @param newName РЅРѕРІРѕРµ РёРјСЏ СЂРµРґР°РєС‚РёСЂСѓРµРјРѕР№ СЃС‚Р°С‚СЊРё
+     * @param value РЅРѕРІРѕРµ СЃРѕРґРµСЂР¶РёРјРѕРµ СЂРµРґР°РєС‚РёСЂСѓРµРјРѕР№
+     * @throws AxisDirectoryArticleNotFoundFaultException РёСЃРєР»СЋС‡РµРЅРёРµ, РІС‹Р·С‹РІР°РµРјРѕРµ РІ СЃР»СѓС‡Р°Рµ РїРѕРїС‹С‚РєРё РґРѕРїСѓСЃС‚РёС‚СЊСЃСЏ Рє РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ СЃС‚Р°С‚СЊРµ
      */
 	public void editArticle(String oldName, String newName, String value) throws AxisDirectoryArticleNotFoundFaultException {
 		try {
@@ -81,10 +81,10 @@ public class ClientSoapStub implements ClientStub {
 		}
 	}
 
-	/** Метод для удаления статьи
+	/** РњРµС‚РѕРґ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ СЃС‚Р°С‚СЊРё
      * 
-     * @param name имя удаляемой
-     * @throws AxisDirectoryArticleNotFoundFaultException исключение, вызываемое в случае попытки допуститься к несуществующей статье
+     * @param name РёРјСЏ СѓРґР°Р»СЏРµРјРѕР№
+     * @throws AxisDirectoryArticleNotFoundFaultException РёСЃРєР»СЋС‡РµРЅРёРµ, РІС‹Р·С‹РІР°РµРјРѕРµ РІ СЃР»СѓС‡Р°Рµ РїРѕРїС‹С‚РєРё РґРѕРїСѓСЃС‚РёС‚СЊСЃСЏ Рє РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ СЃС‚Р°С‚СЊРµ
      */
 	public void deleteArticle(String name) throws AxisDirectoryArticleNotFoundFaultException {
 		try {
@@ -96,7 +96,7 @@ public class ClientSoapStub implements ClientStub {
 		}
 	}
 
-	/** Метод для удаления всех статей */
+	/** РњРµС‚РѕРґ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ РІСЃРµС… СЃС‚Р°С‚РµР№ */
 	public void deleteArticles() {
 		try {
 			AxisDirectoryStub.DeleteArticles method = new AxisDirectoryStub.DeleteArticles();
@@ -106,10 +106,10 @@ public class ClientSoapStub implements ClientStub {
 		}
 	}
 
-	/** Метод для создания новой статьи 
+	/** РњРµС‚РѕРґ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РЅРѕРІРѕР№ СЃС‚Р°С‚СЊРё 
      * 
-     * @param name имя создаваемой статьи
-     * @param value содержимое создаваемой статьи
+     * @param name РёРјСЏ СЃРѕР·РґР°РІР°РµРјРѕР№ СЃС‚Р°С‚СЊРё
+     * @param value СЃРѕРґРµСЂР¶РёРјРѕРµ СЃРѕР·РґР°РІР°РµРјРѕР№ СЃС‚Р°С‚СЊРё
      */
 	public void createArticle(String name, String value) {
 		try {

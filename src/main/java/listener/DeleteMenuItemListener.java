@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import view.GeneralView;
 
-/** Класс служит для реализации слушателя кнопки перехода к окну удаления статей
+/** РљР»Р°СЃСЃ СЃР»СѓР¶РёС‚ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё СЃР»СѓС€Р°С‚РµР»СЏ РєРЅРѕРїРєРё РїРµСЂРµС…РѕРґР° Рє РѕРєРЅСѓ СѓРґР°Р»РµРЅРёСЏ СЃС‚Р°С‚РµР№
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -13,17 +13,17 @@ import view.GeneralView;
  */
 public class DeleteMenuItemListener implements ActionListener {
 
-	/** Ссылка на объект класса GeneralView
+	/** РЎСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° GeneralView
 	 * @see view.GeneralView
 	 */
 	private GeneralView view;
 	
-	/** Конструктор класса инициализирует поле */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РїРѕР»Рµ */
 	public DeleteMenuItemListener(GeneralView view) {
 		this.view = view;
 	}
 	
-	/** Метод выполняет действия при нажатии на кнопку перехода к окну удаления статей */
+	/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРЅРѕРїРєСѓ РїРµСЂРµС…РѕРґР° Рє РѕРєРЅСѓ СѓРґР°Р»РµРЅРёСЏ СЃС‚Р°С‚РµР№ */
 	public void actionPerformed(ActionEvent e) {
 		view.deleteModOn();
 		view.editModOff();

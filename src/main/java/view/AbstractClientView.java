@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-/** Абстракный класс-родитель для классов-представлений
+/** РђР±СЃС‚СЂР°РєРЅС‹Р№ РєР»Р°СЃСЃ-СЂРѕРґРёС‚РµР»СЊ РґР»СЏ РєР»Р°СЃСЃРѕРІ-РїСЂРµРґСЃС‚Р°РІР»РµРЅРёР№
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -12,17 +12,17 @@ import javax.swing.JPanel;
  */
 public abstract class AbstractClientView {
 	
-	/** Ссылка на объект класса JPanel (панель окна класса-представления) */
+	/** РЎСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° JPanel (РїР°РЅРµР»СЊ РѕРєРЅР° РєР»Р°СЃСЃР°-РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ) */
 	protected JPanel panel;
 	
-	/** Конструктор клсса. Создает объект класса JPanel, задает размеры и макет */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»СЃСЃР°. РЎРѕР·РґР°РµС‚ РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° JPanel, Р·Р°РґР°РµС‚ СЂР°Р·РјРµСЂС‹ Рё РјР°РєРµС‚ */
 	public AbstractClientView() {
 		panel = new JPanel();
 		panel.setSize(800, 365);
 		panel.setLayout(new BorderLayout());
 	}
 	
-	/** Метод для формирования представления */
+	/** РњРµС‚РѕРґ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ */
 	protected void decorateView() {}
 
 	public JPanel getPanel() {

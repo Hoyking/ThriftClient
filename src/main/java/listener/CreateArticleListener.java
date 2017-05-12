@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import controller.ConnectionController;
 import controller.ViewController;
 
-/** Класс служит для реализации слушателя кнопки создания статьи
+/** РљР»Р°СЃСЃ СЃР»СѓР¶РёС‚ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё СЃР»СѓС€Р°С‚РµР»СЏ РєРЅРѕРїРєРё СѓРґР°Р»РµРЅРёСЏ СЃС‚Р°С‚РµР№
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -19,20 +19,20 @@ import controller.ViewController;
  */
 public class CreateArticleListener implements ActionListener {
 
-	/** Ссылка на объект ViewController
+	/** РЎСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° ViewController
 	 * @see controller.ViewController
 	 */
 	private ViewController vc;
-	/** Текстовое поле с названием статьи */
+	/** РЎСЃС‹Р»РєР° РЅР° С‚РµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ СЃ РёРјРµРЅРµРј СЃС‚Р°С‚СЊРё */
 	private JTextField nameField;
-	/** Текстовая область с содержимым статьи */
+	/** РЎСЃС‹Р»РєР° РЅР° С‚РµРєСЃС‚РѕРІСѓСЋ РѕР±Р»Р°СЃС‚СЊ СЃ СЃРѕРґРµСЂР¶РёРјС‹Рј СЃС‚Р°С‚СЊРё */
 	private JTextArea valueArea;
 	
-	/** Конструктор класса инициализирует поля
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РїРѕР»СЏ
 	 * 
-	 * @param vc передаваемы объект класса ViewController
-	 * @param nameField передаваемое текстовое поле с названием статьи
-	 * @param valueArea передаваемая текстовая область с содержимым статьи
+	 * @param РїРµСЂРµРґР°РІР°РµРјС‹Р№ РѕР±СЉРµРєС‚ ViewController
+	 * @param nameField РїРµСЂРµРґР°РІР°РµРјС‹Р№ РѕР±СЉРµРєС‚ С‚РµРєСЃС‚РѕРІРѕРіРѕ РїРѕР»СЏ СЃ РёРјРµРЅРµРј
+	 * @param valueArea РїРµСЂРµРґР°РІР°РµРјС‹Р№ РѕР±СЉРµРєС‚ С‚РµРєСЃС‚РѕРІРѕР№ РѕР±Р»Р°СЃС‚Рё СЃ СЃРѕРґРµСЂР¶РёРјС‹Рј
 	 */
 	public CreateArticleListener(ViewController vc, JTextField nameField, JTextArea valueArea) {
 		this.vc = vc;
@@ -40,7 +40,7 @@ public class CreateArticleListener implements ActionListener {
 		this.valueArea = valueArea;
 	}
 	
-	/** Метод выполняет действия при нажатии на кнопку создания статьи */
+	/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРЅРѕРїРєСѓ СЃРѕР·РґР°РЅРёСЏ СЃС‚Р°С‚РµР№ */
 	public void actionPerformed(ActionEvent e) {
 		String name = nameField.getText();
 		String value = valueArea.getText();

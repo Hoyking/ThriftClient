@@ -26,7 +26,7 @@ import listener.SearchArticlesListener;
 import service.rpc.ArticleNotFoundException;
 import service.soap.AxisDirectoryArticleNotFoundFaultException;
 
-/** Класс-представление для обзора статей
+/** РљР»Р°СЃСЃ-РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РґР»СЏ РѕР±Р·РѕСЂР° СЃС‚Р°С‚РµР№
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -34,35 +34,35 @@ import service.soap.AxisDirectoryArticleNotFoundFaultException;
  */
 public class GeneralView extends AbstractClientView{
 	
-	/** Список всех статей */
+	/** РЎРїРёСЃРѕРє РІСЃРµС… СЃС‚Р°С‚РµР№ */
 	private List <ArticleLink> articles;
-	/** Список статей для удаления */
+	/** РЎРїРёСЃРѕРє СЃС‚Р°С‚РµР№ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ */
 	private List <ArticleLink> unnecArticles;
-	/** Выбранная статья */
+	/** Р’С‹Р±СЂР°РЅРЅР°СЏ СЃС‚Р°С‚СЊСЏ */
 	private ArticleLink selectedArticle;
-	/** Текстовая область с содержимым выбранной статьи */
+	/** РўРµРєСЃС‚РѕРІР°СЏ РѕР±Р»Р°СЃС‚СЊ СЃ СЃРѕРґРµСЂР¶РёРјС‹Рј РІС‹Р±СЂР°РЅРЅРѕР№ СЃС‚Р°С‚СЊРё */
 	private JTextArea textArea;
-	/** Текстовое поле для ввода названия статьи в режиме поиска */
+	/** РўРµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° РЅР°Р·РІР°РЅРёСЏ СЃС‚Р°С‚СЊРё РІ СЂРµР¶РёРјРµ РїРѕРёСЃРєР° */
 	private JTextField searchField;
-	/** Панель со списком всех статей */
+	/** РџР°РЅРµР»СЊ СЃРѕ СЃРїРёСЃРєРѕРј РІСЃРµС… СЃС‚Р°С‚РµР№ */
 	private JPanel textPane;
-	/** Текстовое поле с названием выбранной статьи */
+	/** РўРµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ СЃ РЅР°Р·РІР°РЅРёРµРј РІС‹Р±СЂР°РЅРЅРѕР№ СЃС‚Р°С‚СЊРё */
 	private JTextField textField;
 	private JPanel delButtonPanel;
 	private JPanel editButtonPanel;
-	/** Константа определяет белый цвет */
+	/** РљРѕРЅСЃС‚Р°РЅС‚Р° РѕРїСЂРµРґРµР»СЏРµС‚ Р±РµР»С‹Р№ С†РІРµС‚ */
 	private static final Color WHITE = Color.WHITE;
-	/** Константа определяет серый цвет */
+	/** РљРѕРЅСЃС‚Р°РЅС‚Р° РѕРїСЂРµРґРµР»СЏРµС‚ СЃРµСЂС‹Р№ С†РІРµС‚ */
 	private static final Color GRAY = new Color(245, 245, 245);
 	
-	/** Конструктор класса инициализирует списки статей */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ СЃРїРёСЃРєРё СЃС‚Р°С‚РµР№ */
 	public GeneralView() {
 		unnecArticles = new ArrayList <ArticleLink> ();
 		articles = new ArrayList <ArticleLink> ();
 		decorateView();
 	}
 	
-	/** Метод для формирования представления */
+	/** РњРµС‚РѕРґ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ */
 	@Override
 	protected final void decorateView() {
 		Font font = new Font("Arial", 1, 16);
@@ -144,7 +144,7 @@ public class GeneralView extends AbstractClientView{
 	    textArea.setFont(font);
 	}
 	
-	/** Метод переключает представления в режим удаления статей */
+	/** РњРµС‚РѕРґ РїРµСЂРµРєР»СЋС‡Р°РµС‚ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РІ СЂРµР¶РёРј СѓРґР°Р»РµРЅРёСЏ СЃС‚Р°С‚РµР№ */
 	public void deleteModOn() {
 		for(ArticleLink article: articles) {
 			article.setMod(true);
@@ -152,7 +152,7 @@ public class GeneralView extends AbstractClientView{
 		}
 	}
 	
-	/** Метод отключает режим удаления статей */
+	/** РњРµС‚РѕРґ РѕС‚РєР»СЋС‡Р°РµС‚ СЂРµР¶РёРј СѓРґР°Р»РµРЅРёСЏ СЃС‚Р°С‚РµР№ */
 	public void deleteModOff() {
 		unnecArticles.clear();
 		for(ArticleLink article: articles) {
@@ -161,14 +161,14 @@ public class GeneralView extends AbstractClientView{
 		}
 	}
 	
-	/** Метод переключает представления в режим поиска статей */
+	/** РњРµС‚РѕРґ РїРµСЂРµРєР»СЋС‡Р°РµС‚ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РІ СЂРµР¶РёРј РїРѕРёСЃРєР° СЃС‚Р°С‚РµР№ */
 	public void searchModOn() {
 		searchField.setVisible(true);
 		textField.setColumns(42);
 		panel.getParent().repaint();
 	}
 	
-	/** Метод отключает режим поиска статей */
+	/** РњРµС‚РѕРґ РѕС‚РєР»СЋС‡Р°РµС‚ СЂРµР¶РёРј РїРѕРёСЃРєР° СЃС‚Р°С‚РµР№ */
 	public void searchModOff() {
 		for(ArticleLink  articleLink: articles) {
 			articleLink.getComponent().setVisible(true);
@@ -178,7 +178,7 @@ public class GeneralView extends AbstractClientView{
 		panel.getParent().repaint();
 	}
 	
-	/** Метод переключает представления в режим редактирования статьи */
+	/** РњРµС‚РѕРґ РїРµСЂРµРєР»СЋС‡Р°РµС‚ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РІ СЂРµР¶РёРј СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃС‚Р°С‚СЊРё */
 	public void editModOn() {
 		if(selectedArticle == null) {
 			JOptionPane.showMessageDialog(new JFrame(), "Please select article", "Error", JOptionPane.ERROR_MESSAGE);
@@ -193,7 +193,7 @@ public class GeneralView extends AbstractClientView{
 		editButtonPanel.setVisible(true);
 	}
 	
-	/** Метод выполняет редактирования статьи */
+	/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃС‚Р°С‚СЊРё */
 	public void completeEditing () {
 		try {
 			String newName = textField.getText();
@@ -206,7 +206,7 @@ public class GeneralView extends AbstractClientView{
 		}
 	}
 	
-	/** Метод отключает режим редактирования статьи */
+	/** РњРµС‚РѕРґ РѕС‚РєР»СЋС‡Р°РµС‚ СЂРµР¶РёРј СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃС‚Р°С‚СЊРё */
 	public void editModOff() {
 		textArea.setEditable(false);
 		textArea.setBackground(GRAY);
@@ -215,19 +215,19 @@ public class GeneralView extends AbstractClientView{
 		editButtonPanel.setVisible(false);
 	}
 	
-	/** Метод отрисовывает на представлении ссылку на статью
+	/** РњРµС‚РѕРґ РѕС‚СЂРёСЃРѕРІС‹РІР°РµС‚ РЅР° РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРё СЃСЃС‹Р»РєСѓ РЅР° СЃС‚Р°С‚СЊСЋ
 	 * 
-	 * @param articleLink объект типа ArticleLink
+	 * @param articleLink РѕР±СЉРµРєС‚ С‚РёРїР° ArticleLink
 	 * @see component.ArticleLink
 	 */
 	public void paintArticle(ArticleLink articleLink) {
 		textPane.add(articleLink.getComponent());
 	}
 	
-	/** Метод загружает статью
+	/** РњРµС‚РѕРґ Р·Р°РіСЂСѓР¶Р°РµС‚ СЃС‚Р°С‚СЊСЋ
 	 * 
-	 * @param name имя загружаемой статьи
-	 * @param value содержимое загружаемой статьи
+	 * @param name РёРјСЏ Р·Р°РіСЂСѓР¶Р°РµРјРѕР№ СЃС‚Р°С‚СЊРё
+	 * @param value СЃРѕРґРµСЂР¶РёРјРѕРµ Р·Р°РіСЂСѓР¶Р°РµРјРѕР№ СЃС‚Р°С‚СЊРё
 	 */
 	public void loadArticle(String name, String value) {
 		textArea.setText(value);
@@ -235,9 +235,9 @@ public class GeneralView extends AbstractClientView{
 		textField.setColumns(name.length());
 	}
 	
-	/** Метод загружает список заголовков статей
+	/** РњРµС‚РѕРґ Р·Р°РіСЂСѓР¶Р°РµС‚ СЃРїРёСЃРѕРє Р·Р°РіРѕР»РѕРІРєРѕРІ СЃС‚Р°С‚РµР№
 	 *  
-	 * @param titles список заголовков статей
+	 * @param titles СЃРїРёСЃРѕРє Р·Р°РіРѕР»РѕРІРєРѕРІ СЃС‚Р°С‚РµР№
 	 */
 	public void loadTitles(List<String> titles) {
 		articles.clear();
@@ -247,17 +247,17 @@ public class GeneralView extends AbstractClientView{
 		reloadArticles();
 	}
 	
-	/** Метод загружает заголовок статьи
+	/** РњРµС‚РѕРґ Р·Р°РіСЂСѓР¶Р°РµС‚ Р·Р°РіРѕР»РѕРІРѕРє СЃС‚Р°С‚СЊРё
 	 * 
-	 * @param title заголовок статьи
+	 * @param title Р·Р°РіРѕР»РѕРІРѕРє СЃС‚Р°С‚СЊРё
 	 */
 	public void loadTitle(String title) {
 		articles.add(new ArticleLink(title, this));
 	}
 	
-	/** Метод изымает статью из списка
+	/** РњРµС‚РѕРґ РёР·С‹РјР°РµС‚ СЃС‚Р°С‚СЊСЋ РёР· СЃРїРёСЃРєР°
 	 * 
-	 * @param title название статьи
+	 * @param title РЅР°Р·РІР°РЅРёРµ СЃС‚Р°С‚СЊРё
 	 */
 	public void removeTitle(String title) {
 		for(ArticleLink articleLink: articles) {
@@ -269,7 +269,7 @@ public class GeneralView extends AbstractClientView{
 		}
 	}
 	
-	/** Метод удаляет выбранные статьи */
+	/** РњРµС‚РѕРґ СѓРґР°Р»СЏРµС‚ РІС‹Р±СЂР°РЅРЅС‹Рµ СЃС‚Р°С‚СЊРё */
 	public void deleteArticles() {
 		for(ArticleLink article: unnecArticles) {
 			articles.remove(article);
@@ -287,7 +287,7 @@ public class GeneralView extends AbstractClientView{
 		reloadArticles();
 	}
 	
-	/** Метод выполняет поиск и последующее оторажение найденных статей */
+	/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚ РїРѕРёСЃРє Рё РїРѕСЃР»РµРґСѓСЋС‰РµРµ РѕС‚РѕСЂР°Р¶РµРЅРёРµ РЅР°Р№РґРµРЅРЅС‹С… СЃС‚Р°С‚РµР№ */
 	public void searchArticles() {
 		String str = searchField.getText();
 		if(str.length() == 0) {
@@ -305,31 +305,31 @@ public class GeneralView extends AbstractClientView{
 		panel.getParent().repaint();
 	}
 	
-	/** Метод добавляет статью к списку удаляемых
+	/** РњРµС‚РѕРґ РґРѕР±Р°РІР»СЏРµС‚ СЃС‚Р°С‚СЊСЋ Рє СЃРїРёСЃРєСѓ СѓРґР°Р»СЏРµРјС‹С…
 	 * 
-	 * @param articleLink статья для удаления
+	 * @param articleLink СЃС‚Р°С‚СЊСЏ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ
 	 */
 	public void addArticleToBeDel(ArticleLink articleLink) {
 		unnecArticles.add(articleLink);
 	}
 	
-	/** Метод изымает статью из списка удаляемых
+	/** РњРµС‚РѕРґ РёР·С‹РјР°РµС‚ СЃС‚Р°С‚СЊСЋ РёР· СЃРїРёСЃРєР° СѓРґР°Р»СЏРµРјС‹С…
 	 * 
-	 * @param articleLink сохраняемая статья
+	 * @param articleLink СЃРѕС…СЂР°РЅСЏРµРјР°СЏ СЃС‚Р°С‚СЊСЏ
 	 */
 	public void safeArticle(ArticleLink articleLink) {
 		unnecArticles.remove(articleLink);
 	}
 	
-	/** Метод для указания выбранной статьи
+	/** РњРµС‚РѕРґ РґР»СЏ СѓРєР°Р·Р°РЅРёСЏ РІС‹Р±СЂР°РЅРЅРѕР№ СЃС‚Р°С‚СЊРё
 	 * 
-	 * @param articleLink выбранная статья
+	 * @param articleLink РІС‹Р±СЂР°РЅРЅР°СЏ СЃС‚Р°С‚СЊСЏ
 	 */
 	public void setSelectedArticle(ArticleLink articleLink) {
 		selectedArticle = articleLink;
 	}
 	
-	/** Метод перезагружает список статей на представлении */
+	/** РњРµС‚РѕРґ РїРµСЂРµР·Р°РіСЂСѓР¶Р°РµС‚ СЃРїРёСЃРѕРє СЃС‚Р°С‚РµР№ РЅР° РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРё */
 	public void reloadArticles() {
 		textPane.removeAll();
 		for(ArticleLink article: articles) {
@@ -339,12 +339,12 @@ public class GeneralView extends AbstractClientView{
 		panel.repaint();
 	}
 	
-	/** Метод для перерисовывания представления */
+	/** РњРµС‚РѕРґ РґР»СЏ РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РЅРёСЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ */
 	public void repaint() {
 		panel.getParent().repaint();
 	}
 	
-	/** Метод для очистки полей с именем и содержимым статьи */
+	/** РњРµС‚РѕРґ РґР»СЏ РѕС‡РёСЃС‚РєРё РїРѕР»РµР№ СЃ РёРјРµРЅРµРј Рё СЃРѕРґРµСЂР¶РёРјС‹Рј СЃС‚Р°С‚СЊРё */
 	public void clear() {
 		textArea.setText("");
 		textField.setText(" ");

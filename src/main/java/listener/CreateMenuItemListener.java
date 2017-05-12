@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import controller.ViewController;
 
-/** Класс служит для реализации слушателя кнопки перехода к окну создания статьи 
+/** РљР»Р°СЃСЃ СЃР»СѓР¶РёС‚ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё СЃР»СѓС€Р°С‚РµР»СЏ РєРЅРѕРїРєРё РїРµСЂРµС…РѕРґР° Рє РѕРєРЅСѓ СЃРѕР·РґР°РЅРёСЏ СЃС‚Р°С‚СЊРё 
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -13,17 +13,17 @@ import controller.ViewController;
  */
 public class CreateMenuItemListener implements ActionListener {
 
-	/** Ссылка на объект класса ViewController
+	/** РЎСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° ViewController
 	 * @see controller.ViewController
 	 */
 	private ViewController vc;
 	
-	/** Конструктор класса инициализирует поле */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РїРѕР»Рµ */
 	public CreateMenuItemListener(ViewController vc) {
 		this.vc = vc;
 	}
 	
-	/** Метод выполняет действия при нажатии на кнопку перехода к окну создания статьи */
+	/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРЅРѕРїРєСѓ РїРµСЂРµС…РѕРґР° Рє РѕРєРЅСѓ СЃРѕР·РґР°РЅРёСЏ СЃС‚Р°С‚СЊРё */
 	public void actionPerformed(ActionEvent e) {
 		vc.setSelectedView(ViewController.SEARCH);
 	}

@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 import view.GeneralView;
 
-/** Класс служит для реализации слушателя клавиши Enter при поиске статей
+/** РљР»Р°СЃСЃ СЃР»СѓР¶РёС‚ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё СЃР»СѓС€Р°С‚РµР»СЏ РєР»Р°РІРёС€Рё Enter РїСЂРё РїРѕРёСЃРєРµ СЃС‚Р°С‚РµР№
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -13,17 +13,17 @@ import view.GeneralView;
  */
 public class SearchArticlesListener extends KeyAdapter {
 
-	/** Ссылка на объект класса GeneralView
+	/** РЎСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° GeneralView
 	 * @see view.GeneralView
 	 */
 	private GeneralView view;
 	
-	/** Конструктор класса инициализирует поле */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РїРѕР»Рµ */
 	public SearchArticlesListener(GeneralView view) {
 		this.view = view;		
 	}
 	
-	/** Метод выполняет действия при нажатии на клавишу Enter при поиске статей */
+	/** РњРµС‚РѕРґ РІС‹РїРѕР»РЅСЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєР»Р°РІРёС€Сѓ Enter РїСЂРё РїРѕРёСЃРєРµ СЃС‚Р°С‚РµР№ */
 	@Override
 	public void keyTyped(KeyEvent event) {
 		if((int)event.getKeyChar() == KeyEvent.VK_ENTER) {

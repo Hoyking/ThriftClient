@@ -26,7 +26,7 @@ import service.rpc.ClientRPCStub;
 import service.soap.AxisDirectoryStub;
 import service.soap.ClientSoapStub;
 
-/** Класс служит для создания соединения с сервером
+/** РљР»Р°СЃСЃ СЃР»СѓР¶РёС‚ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ СЃРµСЂРІРµСЂРѕРј
  * 
  * @author Parfenenko Artem
  * @version 1.0
@@ -35,20 +35,20 @@ import service.soap.ClientSoapStub;
 public class ConnectionController {
 
 	private static TTransport transport;
-	/** Ссылка на класс-стаб для взаимодействия с web-сервисом */
+	/** РЎСЃС‹Р»РєР° РЅР° РєР»Р°СЃСЃ-СЃС‚Р°Р± РґР»СЏ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ СЃ web-СЃРµСЂРІРёСЃРѕРј */
 	private static ClientStub clientStub;
-	/** Поле для ввода ip-адреса сервера */
+	/** РџРѕР»Рµ РґР»СЏ РІРІРѕРґР° ip-Р°РґСЂРµСЃР° СЃРµСЂРІРµСЂР° */
 	private JTextField ipField;
-	/** Поле для ввода порта сервера */
+	/** РџРѕР»Рµ РґР»СЏ РІРІРѕРґР° РїРѕСЂС‚Р° СЃРµСЂРІРµСЂР° */
 	private JTextField portField;
 	private JFrame frame;
 	
-	/** Конструктор */
+	/** РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ */
 	public ConnectionController() {
 		introView();
 	}
 	
-	/** Метод создает стартовое окно для ввода адреса сервера */
+	/** РњРµС‚РѕРґ СЃРѕР·РґР°РµС‚ СЃС‚Р°СЂС‚РѕРІРѕРµ РѕРєРЅРѕ РґР»СЏ РІРІРѕРґР° Р°РґСЂРµСЃР° СЃРµСЂРІРµСЂР° */
 	private void introView() {
 		frame = new JFrame();
 		frame.setSize(300, 200);
@@ -101,11 +101,11 @@ public class ConnectionController {
 		frame.setVisible(true);
 	}
 	
-	/** Метод для соединения с rpc web-сервисом
+	/** РњРµС‚РѕРґ РґР»СЏ СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ rpc web-СЃРµСЂРІРёСЃРѕРј
 	 * 
-	 * @param ip ip-адрес сервера
-	 * @param port порт сервера
-	 * @throws TException исключение в случае ошибки соединения с сервером
+	 * @param ip ip-Р°РґСЂРµСЃ СЃРµСЂРІРµСЂР°
+	 * @param port РїРѕСЂС‚ СЃРµСЂРІРµСЂР°
+	 * @throws TException РёСЃРєР»СЋС‡РµРЅРёРµ РІ СЃР»СѓС‡Р°Рµ РѕС€РёР±РєРё СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ СЃРµСЂРІРµСЂРѕРј
 	 */
 	private void rpcConnection(String ip, int port) throws TException {
 		transport = new TSocket(ip, port);
@@ -118,11 +118,11 @@ public class ConnectionController {
 		setClientStub(clientStub);
 	}
 	
-	/** Метод для соединения с документно-ориентированным web-сервисом
+	/** РњРµС‚РѕРґ РґР»СЏ СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ РґРѕРєСѓРјРµРЅС‚РЅРѕ-РѕСЂРёРµРЅС‚РёСЂРѕРІР°РЅРЅС‹Рј web-СЃРµСЂРІРёСЃРѕРј
 	 * 
-	 * @param ip ip-адрес 
-	 * @param port порт сервера
-	 * @throws RemoteException исключение в случае ошибки соединения с сервером
+	 * @param ip ip-Р°РґСЂРµСЃ 
+	 * @param port РїРѕСЂС‚ СЃРµСЂРІРµСЂР°
+	 * @throws RemoteException РёСЃРєР»СЋС‡РµРЅРёРµ РІ СЃР»СѓС‡Р°Рµ РѕС€РёР±РєРё СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ СЃРµСЂРІРµСЂРѕРј
 	 */
 	private void soapConnection(String ip, String port) throws RemoteException {
 		ClientStub clientStub = new ClientSoapStub(
@@ -138,7 +138,7 @@ public class ConnectionController {
 		return clientStub;
 	}
 	
-	/** Метод для закрытия соединения с сервером */
+	/** РњРµС‚РѕРґ РґР»СЏ Р·Р°РєСЂС‹С‚РёСЏ СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ СЃРµСЂРІРµСЂРѕРј */
 	public static void closeConnection() {
 		transport.close();
 	}
@@ -151,7 +151,7 @@ public class ConnectionController {
 		return portField.getText();
 	}
 	
-	/** Слушатель кнопки установления соединения с сервером */
+	/** РЎР»СѓС€Р°С‚РµР»СЊ РєРЅРѕРїРєРё СѓСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ СЃРµСЂРІРµСЂРѕРј */
 	private class ButtonListener implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0) {
@@ -180,7 +180,7 @@ public class ConnectionController {
 		
 	}
 	
-	/** Метод main */
+	/** РњРµС‚РѕРґ main */
 	public static void main(String[] args) {
 		new ConnectionController();
 	}
