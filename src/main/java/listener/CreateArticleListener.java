@@ -30,7 +30,7 @@ public class CreateArticleListener implements ActionListener {
 	
 	/** Конструктор класса инициализирует поля
 	 * 
-	 * @param передаваемый объект ViewController
+	 * @param name передаваемый объект ViewController
 	 * @param nameField передаваемый объект текстового поля с именем
 	 * @param valueArea передаваемый объект текстовой области с содержимым
 	 */
